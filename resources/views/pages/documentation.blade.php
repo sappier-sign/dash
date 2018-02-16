@@ -359,7 +359,7 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
                             "000000000001",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc" : "testing new api",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"merchant_id" : "TTM-0000000X",<br/>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"merchant_id" : "TTM-XXXXXXXX",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"r-switch" : "MAS",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cvv" : "XXX",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pan" : "453108XXXXXX7975",<br/>
@@ -370,6 +370,22 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_issuer" : "TGO",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_number" : "027XXXXXXX"<br/>
                             &nbsp;&nbsp;}</p>
+                        <h3>Transfer from Merchant's Float</h3>
+                        <p>When a merchant want's to credit an account or wallet from their existing float or payswitch balance.
+                        The payload required will look like this:</p>
+                        <p> { <br/>
+                                "processing_code":"404000",<br/>
+                                "transaction_id":"141525258595",<br/>
+                                "desc":"testing merchant float",<br/>
+                                "amount":"000000000010",<br/>
+                                "r-switch":"FLT",<br/>
+                                "account_issuer":"MTN",<br/>
+                                "account_number":"024XXXXXXX",<br/>
+                                "merchant_id":"TTM-XXXXXXXX",<br/>
+                                "pass_code":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" <br/>
+                            }</p>
+
+
                         <h3>PHP Example</h3>
                         <p>This example uses CURL, an inbuilt function that comes with PHP. The example below
                             mimics a deposit transaction.</p>
