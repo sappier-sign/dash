@@ -7,7 +7,7 @@
             <!-- row -->
             <div class="row">
                 <div class="col-md-offset-3 col-md-6 col-sm-12">
-                    <div class="white-box" style="min-height: 300px">
+                    <div class="white-box" style="min-height: 350px">
                         <h3 class="text-center">API Credentials</h3>
 
                         <form class="form-material">
@@ -22,6 +22,10 @@
                             <div class="form-group col-md-offset-3 col-md-6 text-center">
                                 <label for="" class="">Merchant ID</label>
                                 <input type="text" class="text-center form-control" value="{{$user->merchant_id}}">
+                            </div>
+                            <div class="form-group col-md-offset-3 col-md-6 text-center">
+                                <label for="" class="">Pass Code</label>
+                                <input type="text" class="text-center form-control" value="{{ substr($user->pass_code, 0, 32) ?? 'not set'}}">
                             </div>
                         </form>
                     </div>

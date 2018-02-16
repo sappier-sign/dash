@@ -203,8 +203,8 @@
                                 <td>Transfer</td>
                             </tr>
                             <tr>
-                                <td rowspan="3" style="vertical-align: middle">From Account Type</td>
-                                <td rowspan="3" class="text-center" style="vertical-align: middle"> 3 - 4</td>
+                                <td rowspan="4" style="vertical-align: middle">From Account Type</td>
+                                <td rowspan="4" class="text-center" style="vertical-align: middle"> 3 - 4</td>
                                 <td>00 (default)</td>
                                 <td>Card</td>
                             </tr>
@@ -217,8 +217,12 @@
                                 <td>Mobile Wallet</td>
                             </tr>
                             <tr>
-                                <td rowspan="3" style="vertical-align: middle">To Account Type</td>
-                                <td rowspan="3" class="text-center" style="vertical-align: middle"> 5 - 6</td>
+                                <td>40</td>
+                                <td>Merchant float</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4" style="vertical-align: middle">To Account Type</td>
+                                <td rowspan="4" class="text-center" style="vertical-align: middle"> 5 - 6</td>
                                 <td>00 (default)</td>
                                 <td>Mobile Wallet</td>
                             </tr>
