@@ -14,6 +14,11 @@ class Transaction extends Model
 	const UPDATED_AT = null;
 	public $incrementing = false;
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'fld_042', 'merchant_id');
+	}
+
     Public static function getTodaysTransactions(){
     	$amount = $failed = $success = $failed_amount = $total_amount = 0;
     	if (Auth::user()->role <> 'master'){
@@ -21,11 +26,13 @@ class Transaction extends Model
                 ->toDateString())
                 ->where('fld_042', Auth::user()->merchant_id)
                 ->latest('fld_012')
+                ->with('user')
                 ->get();
         } else {
             $transactions = Transaction::whereDate('fld_012', Carbon::now()
                 ->toDateString())
                 ->latest('fld_012')
+                ->with('user')
                 ->get();
         }
 
@@ -36,9 +43,9 @@ class Transaction extends Model
         ini_set('max_execution_time', 120);
         $transactions = [];
         if (Auth::user()->role <> 'master') {
-            $transactions = Transaction::where('fld_042', Auth::user()->merchant_id)->latest('fld_012')->paginate(20);
+            $transactions = Transaction::where('fld_042', Auth::user()->merchant_id)->with('user')->latest('fld_012')->paginate(20);
         } else {
-            $transactions = Transaction::latest('fld_012')->limit(10)->paginate(20);
+            $transactions = Transaction::latest('fld_012')->with('user')->limit(10)->paginate(20);
         }
     	return view('pages.transactions', ['user' => Auth::user(), 'transactions' => $transactions]);
 	}
@@ -110,15 +117,15 @@ class Transaction extends Model
         $isDateRange = Carbon::parse($finish)->diffInDays(Carbon::parse($initial));
         if (Auth::user()->role <> 'master'){
             if ($isDateRange){
-                $transactions   =   Transaction::whereBetween('fld_012', [$initial, Carbon::parse($finish)->addDay(1)])->where('fld_042', Auth::user()->merchant_id)->get();
+                $transactions   =   Transaction::whereBetween('fld_012', [$initial, Carbon::parse($finish)->addDay(1)])->with('user')->where('fld_042', Auth::user()->merchant_id)->get();
             } else {
-                $transactions   =   Transaction::whereDate('fld_012', $initial)->where('fld_042', Auth::user()->merchant_id)->get();
+                $transactions   =   Transaction::whereDate('fld_012', $initial)->where('fld_042', Auth::user()->merchant_id)->with('user')->get();
             }
         } else {
             if ($isDateRange){
-                $transactions   =   Transaction::whereBetween('fld_012', [$initial, Carbon::parse($finish)->addDay(1)])->get();
+                $transactions   =   Transaction::whereBetween('fld_012', [$initial, Carbon::parse($finish)->addDay(1)])->with('user')->get();
             } else {
-                $transactions   =   Transaction::whereDate('fld_012', $initial)->get();
+                $transactions   =   Transaction::whereDate('fld_012', $initial)->with('user')->get();
             }
         }
 
@@ -247,7 +254,8 @@ class Transaction extends Model
                 'TranType'      =>  $transaction->fld_003,
                 'Amount'        =>  $transaction->fld_004,
                 'TransDate'     =>  $transaction->fld_012,
-                'Status'        =>  $transaction->fld_039
+                'Status'        =>  $transaction->fld_039,
+                'user_acc'      =>  $transaction->user->acc_number
             ]);
 
             $total_amount+= (float) self::toFixed($transaction->fld_004);

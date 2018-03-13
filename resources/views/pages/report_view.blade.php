@@ -14,6 +14,7 @@
             <!-- /.row -->
             <div class="row">
                 <div class="center p-20 col-md-2 pull-right">
+                    <input type="hidden" name="date_range" value="{{ session('date_range') ?? '' }}">
                                         <span class="hide-menu ">
                                             <a href="#" target="_blank"
                                                class="btn btn-info btn-block btn-rounded waves-effect waves-light">Download</a>
@@ -71,7 +72,7 @@
                     <div class="row">
                         <div class="col-lg-4 col-sm-4">
                             <div class="col-in text-center b-0">
-                                <img src="{{asset('img/paymentlogos/mtnmoney.png')}}" width="90">
+                                <img src="{{asset('img/paymentlogos/Mtnmoney.png')}}" width="90">
                                 <h5>
                                     <b>GH₵ {{$transactions['mtn_amount']}}</b>
                                 </h5>
@@ -183,7 +184,13 @@
                                         <td class="text-center">{{$transaction['fld_011']}}</td>
                                         <td class="text-center">{{$transaction['fld_037']}}</td>
                                         <td class="text-center">{{$transaction['fld_057']}}</td>
-                                        <td class="text-center">{{$transaction['fld_002']}}</td>
+                                        <td class="text-center">
+                                            @if($transaction['fld_003'] === '404000')
+                                                {{ $transaction['user']['acc_number'] }}
+                                            @else
+                                                {{ $transaction['fld_002'] }}
+                                            @endif
+                                        </td>
                                         <td class="text-center">{{$transaction['fld_003']}}</td>
                                         <td class="text-right">{{$transaction['fld_004']}}</td>
                                         <td class="text-center">{{$transaction['fld_012']}}</td>

@@ -147,6 +147,7 @@
                                     <br>"ATL" for Airtel,
                                     <br>"TGO" for Tigo,
                                     <br>"MAS" for Master Card
+                                    <br>"FLT" for Merchant Float/PaySwitch Balance
                                 </td>
                             </tr>
                             <tr>
@@ -203,8 +204,8 @@
                                 <td>Transfer</td>
                             </tr>
                             <tr>
-                                <td rowspan="3" style="vertical-align: middle">From Account Type</td>
-                                <td rowspan="3" class="text-center" style="vertical-align: middle"> 3 - 4</td>
+                                <td rowspan="4" style="vertical-align: middle">From Account Type</td>
+                                <td rowspan="4" class="text-center" style="vertical-align: middle"> 3 - 4</td>
                                 <td>00 (default)</td>
                                 <td>Card</td>
                             </tr>
@@ -217,8 +218,12 @@
                                 <td>Mobile Wallet</td>
                             </tr>
                             <tr>
-                                <td rowspan="3" style="vertical-align: middle">To Account Type</td>
-                                <td rowspan="3" class="text-center" style="vertical-align: middle"> 5 - 6</td>
+                                <td>40</td>
+                                <td>Merchant float</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="4" style="vertical-align: middle">To Account Type</td>
+                                <td rowspan="4" class="text-center" style="vertical-align: middle"> 5 - 6</td>
                                 <td>00 (default)</td>
                                 <td>Mobile Wallet</td>
                             </tr>
@@ -295,7 +300,7 @@
                             </thead>
                         </table>
                         <p>From above, a JSON payload for purchase with a mobile wallet will look like this:</p>
-                        <p>&nbsp;&nbsp;{ <br/>
+                        <p>&nbsp;&nbsp;<code>{ <br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount" : "000000000010",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code" : "000000",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
@@ -305,9 +310,9 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"subscriber_number" :
                             "027XXXXXXX",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"r-switch" : "TGO"<br/>
-                            &nbsp;&nbsp;}</p>
+                                &nbsp;&nbsp;}</code></p>
                         <p>And a JSON payload for purchase with a Card will look like this:</p>
-                        <p>&nbsp;&nbsp;{ <br/>
+                        <p>&nbsp;&nbsp;<code>{ <br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount" : "000000000010",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code" : "000000",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
@@ -321,7 +326,7 @@
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"exp_year" : "18",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"3d_url_response" :
                             "XXXXXXXXXXXXXXXXXXXX"<br/>
-                            &nbsp;&nbsp;}</p>
+                                &nbsp;&nbsp;}</code></p>
                         <h3>Transfer</h3>
                         <p>For transfers, the fields to add to the required fields mentioned earlier in Table
                             1.0 are presented in Table 1.4 below.</p>
@@ -331,6 +336,11 @@
                                 <th class="text-center">Field</th>
                                 <th class="text-center">Description</th>
                                 <th class="text-center">Summary</th>
+                            </tr>
+                            <tr>
+                                <td>pass_code</td>
+                                <td><strong>Type:</strong> String<br/><strong>Format:</strong> Alpha_Numeric<br/><strong>Length:</strong> 32</td>
+                                <td>Pass code for decrypting merchant/float (require if r-switch: 'FLT')</td>
                             </tr>
                             <tr>
                                 <td>account_number</td>
@@ -349,7 +359,7 @@
                             </thead>
                         </table>
                         <p>From above, a funds transfer from a card to a mobile wallet will look like this:</p>
-                        <p>&nbsp;&nbsp;{ <br/>
+                        <p>&nbsp;&nbsp;<code>{ <br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount" : "000000000010",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code" : "400110",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
@@ -365,21 +375,22 @@
                             ”XXXXXXXXXXXXXXXXXXXXXX”,<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_issuer" : "TGO",<br/>
                             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_number" : "027XXXXXXX"<br/>
-                            &nbsp;&nbsp;}</p>
+                                &nbsp;&nbsp;}</code>
+                        </p>
                         <h3>Transfer from Merchant's Float</h3>
                         <p>When a merchant want's to credit an account or wallet from their existing float or payswitch balance.
                         The payload required will look like this:</p>
-                        <p> { <br/>
-                                "processing_code":"404000",<br/>
-                                "transaction_id":"141525258595",<br/>
-                                "desc":"testing merchant float",<br/>
-                                "amount":"000000000010",<br/>
-                                "r-switch":"FLT",<br/>
-                                "account_issuer":"MTN",<br/>
-                                "account_number":"024XXXXXXX",<br/>
-                                "merchant_id":"TTM-XXXXXXXX",<br/>
-                                "pass_code":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" <br/>
-                            }</p>
+                        <p> <code>{ <br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code":"404000",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id":"141525258595",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc":"testing merchant float",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount":"000000000010",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"r-switch":"FLT",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_issuer":"MTN",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_number":"024XXXXXXX",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"merchant_id":"TTM-XXXXXXXX",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pass_code":"XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX" <br/>
+                                }</code></p>
 
 
                         <h3>PHP Example</h3>

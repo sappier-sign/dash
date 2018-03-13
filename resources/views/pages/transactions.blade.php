@@ -30,7 +30,8 @@
                                     </div>
                                     <div class="col-sm-12 col-md-6">
                                         <div class='input-group date' id='datetimepicker6'>
-                                            <input type='text' name="value" placeholder="search" class="form-control" required>
+                                            <input type='text' name="value" placeholder="search" class="form-control"
+                                                   required>
                                             <span class="input-group-addon">
                     <button type="submit"><span class="glyphicon glyphicon-search"></span></button>
                                                 </span>
@@ -64,8 +65,16 @@
                                         <tr role="row" class="">
                                             <td class="text-center">{{$transaction['fld_011']}}</td>
                                             <td class="text-center">{{$transaction['fld_037']}}</td>
-                                            <td class="text-center">{{$transaction['fld_057']}}</td>
-                                            <td class="text-center">{{$transaction['fld_002']}}</td>
+                                            <td class="text-center">
+                                                {{$transaction['fld_057']}}
+                                            </td>
+                                            <td class="text-center">
+                                                @if($transaction['fld_003'] === '404000')
+                                                    {{ $transaction['user']['acc_number'] }}
+                                                @else
+                                                    {{$transaction['fld_002']}}
+                                                @endif
+                                            </td>
                                             <td class="text-center">{{$transaction['fld_003']}}</td>
                                             <td class="text-right">{{$transaction['fld_004']}}</td>
                                             <td class="text-center">{{$transaction['fld_012']}}</td>
