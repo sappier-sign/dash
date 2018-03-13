@@ -34,6 +34,11 @@ class User extends Authenticatable
         return $this->hasOne(ApiUser::class, 'user_name', 'apiuser');
     }
 
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class, 'fld_042', 'merchant_id');
+    }
+
     public static function saveUser($user, $actions)
     {
         if (DB::table('users')->insert($user)){
