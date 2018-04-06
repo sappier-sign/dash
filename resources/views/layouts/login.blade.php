@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>TheTeller API</title>
-    {{--<script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>--}}
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -31,8 +30,8 @@
                 @endforeach
             </div>
         @endif
-        <form action="{{route('login')}}" method="post" class="" role="form">
-            {{csrf_field()}}
+        <form action="{{ url('login') }}" method="post" class="" role="form">
+            {{ csrf_field() }}
             <div id="" class="form-group">
                 <input id="username" class="form-control text-center" name="email" placeholder="email" type="text"
                        size="18" alt="email" value="{{old('email')}}"
@@ -45,7 +44,8 @@
                        required>
             </div>
             <div style="margin-top: -10px">
-                <button class="btn btn-block btn-info ripple-effect" type="submit" name="Submit" alt="sign in">Sign in
+                <button class="btn btn-block btn-info ripple-effect" type="submit" name="Submit" alt="sign in">
+                    Sign in
                 </button>
             </div>
         </form>
