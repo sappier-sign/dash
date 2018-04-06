@@ -36,11 +36,21 @@ class TransactionsController extends Controller
         return view('pages.report_view', ['user' => Auth::user(), 'transactions' => $transactions]);
 	}
 
+	public function settlementView()
+    {
+        return view('pages.settlement_view')->withUser(Auth::user());
+    }
+
     public function getReport(Request $request)
     {
         $transactionController = new TransactionsController();
         return $transactionController->reportsView($request->date);
 	}
+
+	public function getSettlement(Request $request)
+    {
+        return (new TransactionsController())->settlementView();
+    }
 
     public function fetchTransactions($start, $end)
     {

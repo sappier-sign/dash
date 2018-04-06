@@ -1,5 +1,5 @@
-@extends('layouts.master')
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row bg-title">
@@ -9,8 +9,9 @@
                 <div class="col-sm-12">
                     <div class="white-box">
                         <h3>Reports</h3>
-                        <form method="post" action="{{url('reports/view')}}" class="row">
-                            {{csrf_field()}}
+                        <form method="post" action="<?php echo e(url('reports/view')); ?>" class="row">
+                            <?php echo e(csrf_field()); ?>
+
                             <div class='col-md-6'>
                                 <div class="form-group">
                                     <label for="report-date-range">Select Date Range:</label>
@@ -33,8 +34,9 @@
                 <div class="col-sm-12">
                     <div class="white-box">
                         <h3>Settlement</h3>
-                        <form method="POST" action="{{url('reports/settlement')}}" class="row">
-                            {{csrf_field()}}
+                        <form method="POST" action="<?php echo e(url('reports/settlement')); ?>" class="row">
+                            <?php echo e(csrf_field()); ?>
+
                             <div class='col-md-6'>
                                 <div class="form-group">
                                     <label for="report-settlement-date">Select Date Range:</label>
@@ -55,4 +57,5 @@
         </div>
         <!-- /.container-fluid -->
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

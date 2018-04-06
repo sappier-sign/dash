@@ -59,6 +59,11 @@ $(document).ready(function() {
                     format: 'YYYY-MM-DD'
                 }
             });
+
+            $('#report-settlement-date').daterangepicker({
+                    singleDatePicker: true,
+                    showDropdowns: true
+                });
         }
     });
 
