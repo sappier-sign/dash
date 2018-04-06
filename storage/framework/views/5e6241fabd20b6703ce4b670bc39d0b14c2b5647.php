@@ -1,0 +1,1 @@
+<footer class="footer text-center"> &copy; <?php echo e(Carbon\Carbon::now()->format('Y')); ?> TheTeller API</footer>
