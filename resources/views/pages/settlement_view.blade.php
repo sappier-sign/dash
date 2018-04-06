@@ -11,6 +11,27 @@
                 </div>
                 <!-- /.col-lg-12 -->
             </div>
+            <!-- row -->
+            <div class="row">
+                <div class="center p-20 col-md-2 pull-right">
+                    <input type="hidden" name="date_range" value="{{ session('date_range') ?? '' }}">
+                    <span class="hide-menu ">
+                                            <a href="" target="_blank"
+                                               class="btn btn-info btn-block btn-rounded waves-effect waves-light">Download</a>
+                                        </span>
+                </div>
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="white-box">
+                        <div class="row row-in">
+                            <div class="col-lg-6 col-sm-12">
+                                ...
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ./row -->
+
             {{--<!-- /.row -->--}}
             {{--<div class="row">--}}
                 {{--<div class="center p-20 col-md-2 pull-right">--}}

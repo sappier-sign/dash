@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TestTransaction;
 use App\Transaction;
+use App\Settlement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Log;
 
 class TransactionsController extends Controller
 {
@@ -36,9 +38,10 @@ class TransactionsController extends Controller
         return view('pages.report_view', ['user' => Auth::user(), 'transactions' => $transactions]);
 	}
 
-	public function settlementView()
+	public function settlementView($settlement = [])
     {
-        return view('pages.settlement_view')->withUser(Auth::user());
+        return view('pages.settlement_view')->withUser(Auth::user())
+            ->withSettlements($settlement);
     }
 
     public function getReport(Request $request)
@@ -49,7 +52,10 @@ class TransactionsController extends Controller
 
 	public function getSettlement(Request $request)
     {
-        return (new TransactionsController())->settlementView();
+        $settlement = Settlement::all();
+        Log::info('All settlement');
+        Log::debug($settlement);
+        return (new TransactionsController())->settlementView($settlement);
     }
 
     public function fetchTransactions($start, $end)
