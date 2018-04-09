@@ -40,11 +40,57 @@ class TransactionsController extends Controller
 
 	public function settlementView($settlement = [])
     {
-        //Log::info('Settlements are: ');
-        //Log::debug($settlement);
+        /*Log::info('Settlements are: ');
+        Log::debug($settlement);*/
+        $switches = [array('name'=>'MTN','image'=>'img/paymentlogos/mtn.png','fname' => 'MTN'),
+            array('name'=>'VDF','image'=>'img/paymentlogos/vodafone.png','fname' => 'Vodafone'),
+            array('name'=>'ATL','image'=>'img/paymentlogos/airtel.png','fname' => 'Airtel'),
+            array('name'=>'TGO','image'=>'img/paymentlogos/tigo.png','fname' => 'Tigo'),
+            array('name'=>'VIS','image'=>'img/paymentlogos/visa.png','fname' => 'Visa'),
+            array('name'=>'MAS','image'=>'img/paymentlogos/mastercard.png','fname' => 'Mastercard')
+        ];
+
+        $totals = [];
+        foreach($switches as $switch) {
+            $totals[$switch['name']] = [];
+            $totals[$switch['name']]['count'] = 0;
+            $totals[$switch['name']]['image'] = $switch['image'];
+            $totals[$switch['name']]['name'] = $switch['fname'];
+            $totals[$switch['name']]['transaction_count'] = 0;
+            $totals[$switch['name']]['transaction_amount'] = 0;
+            $totals[$switch['name']]['charges'] = 0;
+            $totals[$switch['name']]['net_amount'] = 0;
+        }
+
+        $switches = ['MTN','VDF','ATL','TGO','VIS','MAS'];
+
+        Log::debug($totals);
+
+        //count the volume of transaction per r-switch
+        foreach($settlement as $item) {
+            //Log::debug($item);
+            //Log::debug($item->RSWITCH);
+            if($item->RSWITCH=='VDF'){
+                Log::debug($item);
+            }
+            if(in_array($item->RSWITCH,$switches)) {
+                Log::info('Found in R-Switch');
+                Log::debug($item->id.' '.$item->RSWITCH);
+                $totals[$item->RSWITCH]['count']++;
+                $totals[$item->RSWITCH]['transaction_count'] += $item->TOTVOL;
+                $totals[$item->RSWITCH]['transaction_amount'] +=(double) $item->TOTVAL;
+                $totals[$item->RSWITCH]['charges'] +=(double) $item->CHARGES;
+                $totals[$item->RSWITCH]['net_amount'] +=(double) $item->NET;
+                //Log::debug($totals[$item->RSWITCH]);
+            }
+        }
+
+        //Log::debug($totals);
+        //Log::info("Transaction count");
+        //Log::info(count($settlement));
 
         return view('pages.settlement_view')->withUser(Auth::user())
-            ->withSettlements($settlement);
+            ->withSettlements($settlement)->withSwitches($totals);
     }
 
     public function getReport(Request $request)
@@ -63,9 +109,10 @@ class TransactionsController extends Controller
         Log::debug($request->all());
         $date = explode('/',$request->date);
         $date = Carbon::createFromDate($date[2],$date[0],$date[1]);
-        Log::debug($date);
+        Log::debug($date->toDateString().' 00:00:00');
 
-        $settlement = Settlement::all();
+        /*$settlement = Settlement::whereDate('datecreated',$date->toDateString().' 00:00:00')->get();*/
+        $settlement = Settlement::whereDate('setldate',$date->toDateString())->where('merchid',Auth::user()->merchant_id)->get();
 
         return (new TransactionsController())->settlementView($settlement);
     }

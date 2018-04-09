@@ -27,49 +27,74 @@
                             <div class="table-responsive">
                                 <table class="table table-condensed table-hover table-striped">
                                     <thead>
-                                    <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom"> CARD TYPE SUMMARY</caption>
+                                    <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">TRANSACTIONS SUMMARY</caption>
                                     <tr>
-                                        <th col width="250"> CARD TYPE </th>
-                                        <th>  NUMBER OF SALES</th>
-                                        <th> SALES</th>
-                                        <th> NUMBER OF CREDIT</th>
-                                        <th>CREDIT</th>
-                                        <th> TOTAL NUMBER OF ITEMS</th>
-                                        <th> NET SALES</th>
-                                        <th> AVERAGE TICKET</th>
+                                        <th col width="250"> R-SWITCH </th>
+                                        <th>NO. OF TRANSACTIONS</th>
+                                        <th>TOTAL AMOUNT</th>
+                                        <th>CHARGES</th>
+                                        <th>NET AMOUNT</th>
+                                        
+                                        
+                                        
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <?php $__currentLoopData = $switches; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $switch): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
-                                        <td> <img src="<?php echo e(asset('img/paymentlogos/Visa_Debit_SVG_logo.jpg')); ?>" style="width: 50px; height: 30px" alt="card Symbol"/>  Visa</td>
-                                        <td>Anna</td>
-                                        <td>Pitt</td>
-                                        <td>35</td>
-                                        <td>New York</td>
-                                        <td>USA</td>
-                                        <td>New York</td>
-                                        <td>USA</td>
+                                        <td>
+                                            <img src="<?php echo e(asset($switch['image'])); ?>" style="width: 50px; height: 30px" alt="card Symbol">
+                                            <?php echo e($switch['name']); ?>
+
+                                        </td>
+                                        <td>
+                                            <?php echo e($switch['transaction_count']); ?>
+
+                                        </td>
+                                        <td>
+                                            <?php echo e($switch['transaction_amount']); ?>
+
+                                        </td>
+                                        <td>
+                                            <?php echo e($switch['charges']); ?>
+
+                                        </td>
+                                        <td>
+                                            <?php echo e($switch['net_amount']); ?>
+
+                                        </td>
                                     </tr>
-                                    <tr>
-                                        <td colspan=""> <img src="<?php echo e(asset('img/paymentlogos/ame.png')); ?>" style="width: 50px; height: 30px" alt="card Symbol"/> Amarican Express</td>
-                                        <td>Anna</td>
-                                        <td>Pitt</td>
-                                        <td>35</td>
-                                        <td>New York</td>
-                                        <td>USA</td>
-                                        <td>New York</td>
-                                        <td>USA</td>
-                                    </tr>
-                                    <tr>
-                                        <td> <img src="<?php echo e(asset('img/paymentlogos/MasterCard-Logo.jpg')); ?>" style="width: 50px; height: 30px" alt="card Symbol"/>  Master</td>
-                                        <td>Anna</td>
-                                        <td>Pitt</td>
-                                        <td>35</td>
-                                        <td>New York</td>
-                                        <td>USA</td>
-                                        <td>New York</td>
-                                        <td>USA</td>
-                                    </tr>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    
+                                    
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    
+                                    
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                    
                                     </tbody>
                                 </table>
                             </div>
