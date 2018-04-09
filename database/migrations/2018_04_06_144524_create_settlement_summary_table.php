@@ -27,8 +27,8 @@ class CreateSettlementsummaryTable extends Migration
             $table->string('CHARGES', 15)->comment('Charges to be applied');
             $table->string('NET', 15)->comment('Net value of the transactions');
             $table->timestamp('DATECREATED')->default(\DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamps();
-            $table->unique(["id"]);
+            //$table->timestamps();
+            //$table->unique(["id"]);
         });
     }
 
