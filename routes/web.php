@@ -23,7 +23,7 @@ Route::prefix('merchants')->group(function (){
 Route::prefix('reports')->group(function (){
     Route::get('/', 'TransactionsController@reports');
     Route::get('{date_range}', 'TransactionsController@reportsView');
-    Route::get('settlement','TransactionsController@settlementView');
+    Route::get('settlement/{date?}','TransactionsController@settlementView')->name('settlement');
     Route::post('view', 'TransactionsController@getReport');
     Route::post('settlement','TransactionsController@getSettlement');
 });
@@ -41,8 +41,6 @@ Route::prefix('password')->group(function (){
     Route::get('change', 'LoginController@changePassword');
     Route::post('change', 'UserController@changePassword');
 });
-
-//Route::get('login', 'LoginController@index');
 
 Route::get('dashboard', 'LoginController@getTransactions');
 Route::get('', 'LoginController@redirectToHome');
