@@ -40,6 +40,9 @@ class TransactionsController extends Controller
 
 	public function settlementView($settlement = [])
     {
+        //Log::info('Settlements are: ');
+        //Log::debug($settlement);
+
         return view('pages.settlement_view')->withUser(Auth::user())
             ->withSettlements($settlement);
     }
@@ -52,9 +55,18 @@ class TransactionsController extends Controller
 
 	public function getSettlement(Request $request)
     {
+        $this->validate($request,[
+            'date' => 'bail|max:10'
+        ]);
+
+        Log::info('The request params : ');
+        Log::debug($request->all());
+        $date = explode('/',$request->date);
+        $date = Carbon::createFromDate($date[2],$date[0],$date[1]);
+        Log::debug($date);
+
         $settlement = Settlement::all();
-        Log::info('All settlement');
-        Log::debug($settlement);
+
         return (new TransactionsController())->settlementView($settlement);
     }
 
