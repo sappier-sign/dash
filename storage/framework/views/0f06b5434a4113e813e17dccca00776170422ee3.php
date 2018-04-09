@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -16,7 +15,7 @@
                 <div class="center p-20 col-md-2 pull-right">
                     <input type="hidden" name="date_range" value="<?php echo e(session('date_range') ?? ''); ?>">
                                         <span class="hide-menu ">
-                                            <a href="#" target="_blank"
+                                            <a href=""
                                                class="btn btn-info btn-block btn-rounded waves-effect waves-light">Download</a>
                                         </span>
                 </div>
