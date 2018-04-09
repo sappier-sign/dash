@@ -15,7 +15,7 @@
             <div class="col-md-12 col-lg-12 col-sm-12">
                 <div class="white-box">
                     <div class="row row-in">
-                        <div class="col-lg-6 col-sm-12">
+                        <div class="col-lg-12 col-md-12 col-sm-12">
                             <div class="table-responsive">
                                 <table class="table table-condensed table-hover table-striped">
                                     <thead>
