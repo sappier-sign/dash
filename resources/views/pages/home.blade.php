@@ -139,16 +139,16 @@
                             <thead>
                             <tr role="row">
                                 @if( $user->role === 'master' )
-                                    <th title="Merchant" class="text-center">fld_043</th>
+                                    <th title="Merchant" class="text-center">Merchant</th>
                                 @endif
-                                <th title="System Trace Audit Number" class="text-center">fld_011</th>
-                                <th title="Reference" class="text-center">fld_037</th>
-                                <th title="Wallet Name" class="text-center">fld_057</th>
-                                <th title="Wallet Number" class="text-center">fld_002</th>
-                                <th title="Transaction Type" class="text-center">fld_003</th>
-                                <th title="Transaction Amount" class="text-center">fld_004</th>
-                                <th title="Transaction Date" class="text-center">fld_012</th>
-                                <th title="Transaction Status" class="text-center">fld_039</th>
+                                <th title="System Trace Audit Number" class="text-center">Stan</th>
+                                <th title="Reference" class="text-center">Transaction Id</th>
+                                <th title="Wallet Name" class="text-center">R Switch</th>
+                                <th title="Wallet Number" class="text-center">Wallet Number</th>
+                                <th title="Transaction Type" class="text-center">Process Code</th>
+                                <th title="Transaction Amount" class="text-center">Amount</th>
+                                <th title="Transaction Date" class="text-center">Date</th>
+                                <th title="Transaction Status" class="text-center">Status</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -196,14 +196,17 @@
                             </tbody>
                             <tfoot>
                             <tr role="row">
-                                <th title="System Trace Audit Number" class="text-center">fld_011</th>
-                                <th title="Reference" class="text-center">fld_037</th>
-                                <th title="Wallet Name" class="text-center">fld_057</th>
-                                <th title="Wallet Number" class="text-center">fld_002</th>
-                                <th title="Transaction Type" class="text-center">fld_003</th>
-                                <th title="Transaction Amount" class="text-center">fld_004</th>
-                                <th title="Transaction Date" class="text-center">fld_012</th>
-                                <th title="Transaction Status" class="text-center">fld_039</th>
+                                @if( $user->role === 'master' )
+                                    <th title="Merchant" class="text-center">Merchant</th>
+                                @endif
+                                <th title="System Trace Audit Number" class="text-center">Stan</th>
+                                <th title="Reference" class="text-center">Transaction Id</th>
+                                <th title="Wallet Name" class="text-center">R Switch</th>
+                                <th title="Wallet Number" class="text-center">Wallet Number</th>
+                                <th title="Transaction Type" class="text-center">Process Code</th>
+                                <th title="Transaction Amount" class="text-center">Amount</th>
+                                <th title="Transaction Date" class="text-center">Date</th>
+                                <th title="Transaction Status" class="text-center">Status</th>
                             </tr>
                             </tfoot>
                         </table>

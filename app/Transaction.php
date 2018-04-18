@@ -339,6 +339,7 @@ class Transaction extends Model
                     "fld_012",
                     "fld_037",
                     "fld_039",
+                    "fld_041",
                     "fld_042",
                     "fld_043",
                     "fld_057",
@@ -363,6 +364,7 @@ class Transaction extends Model
                     "fld_012",
                     "fld_037",
                     "fld_039",
+                    "fld_041",
                     "fld_042",
                     "fld_043",
                     "fld_057",
@@ -377,7 +379,7 @@ class Transaction extends Model
                 ]);
         }
 
-        $contents = '"subscriber_number","processing_code","amount","stan","transaction_date","transaction_id","response_code","merchant_id","merchant_name","r-switch","account_number","desc","account_issuer","rfu_001","rfu_002","rfu_003","rfu_004","rfu_005"'."\n\r";
+        $contents = '"subscriber_number","processing_code","amount","stan","transaction_date","transaction_id","response_code","terminal_id","merchant_id","merchant_name","r-switch","account_number","desc","account_issuer","rfu_001","rfu_002","rfu_003","rfu_004","rfu_005"'."\n\r";
 
         $file_name = str_replace('-', '', Auth::user()->merchant_id).str_replace('-', '', $start).str_replace('-', '', $end).'.csv';
 
