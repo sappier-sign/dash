@@ -138,6 +138,9 @@
                                aria-describedby="example1_info">
                             <thead>
                             <tr role="row">
+                                @if( $user->role === 'master' )
+                                    <th title="Merchant" class="text-center">fld_043</th>
+                                @endif
                                 <th title="System Trace Audit Number" class="text-center">fld_011</th>
                                 <th title="Reference" class="text-center">fld_037</th>
                                 <th title="Wallet Name" class="text-center">fld_057</th>
@@ -157,6 +160,9 @@
                                 @else
                                     @foreach($transactions['transactions'] as $transaction)
                                         <tr role="row" class="">
+                                            @if( $user->role === 'master' )
+                                                <td class="text-center">{{$transaction['Merchant']}}</td>
+                                            @endif
                                             <td class="text-center">{{$transaction['STAN']}}</td>
                                             <td class="text-center">{{$transaction['TranId']}}</td>
                                             <td class="text-center">{{$transaction['Platform']}}</td>

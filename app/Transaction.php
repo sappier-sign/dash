@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Transaction extends Model
 {
@@ -40,13 +41,17 @@ class Transaction extends Model
 	}
 
 	public static function getAllTransactions(){
-        ini_set('max_execution_time', 120);
-        $transactions = [];
+
         if (Auth::user()->role <> 'master') {
+
             $transactions = Transaction::where('fld_042', Auth::user()->merchant_id)->with('user')->latest('fld_012')->paginate(20);
+
         } else {
+
             $transactions = Transaction::latest('fld_012')->with('user')->limit(10)->paginate(20);
+
         }
+
     	return view('pages.transactions', ['user' => Auth::user(), 'transactions' => $transactions]);
 	}
 
@@ -132,6 +137,7 @@ class Transaction extends Model
         $_transactions = [];
         foreach ($transactions as $transaction) {
             array_push($_transactions, [
+                'fld_043'     =>  $transaction->fld_043,
                 'fld_011'     =>  $transaction->fld_011,
                 'fld_037'     =>  $transaction->fld_037,
                 'fld_057'     =>  $transaction->fld_057,
@@ -247,6 +253,7 @@ class Transaction extends Model
         foreach ($transactions as $transaction) {
 
             array_push($_transactions, [
+                'Merchant'      =>  $transaction->fld_043,
                 'STAN'          =>  $transaction->fld_011,
                 'TranId'        =>  $transaction->fld_037,
                 'Platform'      =>  $transaction->fld_057,
@@ -319,11 +326,82 @@ class Transaction extends Model
         ];
     }
 
-    public static function handleFetchTransactions($transactions, $results)
+    public static function downloadReport($start, $end)
     {
+        if (Auth::user()->role === 'master') {
+            $transactions = self
+                ::whereBetween('fld_012', [Carbon::parse($start)->startOfDay(), Carbon::parse($end)->endOfDay()])
+                ->get([
+                    "fld_002",
+                    "fld_003",
+                    "fld_004",
+                    "fld_011",
+                    "fld_012",
+                    "fld_037",
+                    "fld_039",
+                    "fld_042",
+                    "fld_043",
+                    "fld_057",
+                    "fld_103",
+                    "fld_116",
+                    "fld_117",
+                    "rfu_001",
+                    "rfu_002",
+                    "rfu_003",
+                    "rfu_004",
+                    "rfu_005"
+                ]);
+        } else {
+            $transactions = self
+                ::whereBetween('fld_012', [Carbon::parse($start)->startOfDay(), Carbon::parse($end)->endOfDay()])
+                ->where('fld_042', Auth::user()->merchant_id)
+                ->get([
+                    "fld_002",
+                    "fld_003",
+                    "fld_004",
+                    "fld_011",
+                    "fld_012",
+                    "fld_037",
+                    "fld_039",
+                    "fld_042",
+                    "fld_043",
+                    "fld_057",
+                    "fld_103",
+                    "fld_116",
+                    "fld_117",
+                    "rfu_001",
+                    "rfu_002",
+                    "rfu_003",
+                    "rfu_004",
+                    "rfu_005"
+                ]);
+        }
+
+        $contents = '"subscriber_number","processing_code","amount","stan","transaction_date","transaction_id","response_code","merchant_id","merchant_name","r-switch","account_number","desc","account_issuer","rfu_001","rfu_002","rfu_003","rfu_004","rfu_005"'."\n\r";
+
+        $file_name = str_replace('-', '', Auth::user()->merchant_id).str_replace('-', '', $start).str_replace('-', '', $end).'.csv';
 
         foreach ($transactions as $transaction) {
 
+            $fields = $transaction->toArray();
+
+            $row = '';
+
+            foreach ($fields as $key => $value) {
+
+                $row .= '"'. $value. '"';
+
+                if ($key <> 'rfu_005') {
+                    $row .= ',';
+                }
+            }
+
+            $contents .= $row."\n\r";
         }
+
+        Storage::disk('local')->put($file_name, $contents);
+
+        return response()->download(storage_path('app\\'.$file_name));
     }
+
 }

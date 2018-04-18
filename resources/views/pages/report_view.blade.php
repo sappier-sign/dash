@@ -15,9 +15,9 @@
             <div class="row">
                 <div class="center p-20 col-md-2 pull-right">
                     <input type="hidden" name="date_range" value="{{ session('date_range') ?? '' }}">
-                                        <span class="hide-menu ">
-                                            <a href="#" target="_blank"
-                                               class="btn btn-info btn-block btn-rounded waves-effect waves-light">Download</a>
+                    <span class="hide-menu ">
+                                            <a href="{{ url('reports/download/'.$start.'/'.$end) }}" target="_blank"
+                                               class="btn btn-info btn-block btn-rounded waves-effect waves-light">download csv</a>
                                         </span>
                 </div>
                 <div class="col-md-12 col-lg-12 col-sm-12">
@@ -54,13 +54,13 @@
 
                 <!-- row -->
                 {{--<div class="row">--}}
-                    {{--<div class="col-md-4 col-xs-12 col-sm-12">--}}
-                    {{--<div class="white-box">--}}
-                    {{--<!-- <h3>Merchant Health</h3> -->--}}
-                    {{--<div id="piechart" style="height: 493px;"></div>--}}
+                {{--<div class="col-md-4 col-xs-12 col-sm-12">--}}
+                {{--<div class="white-box">--}}
+                {{--<!-- <h3>Merchant Health</h3> -->--}}
+                {{--<div id="piechart" style="height: 493px;"></div>--}}
 
-                    {{--</div>--}}
-                    {{--</div>--}}
+                {{--</div>--}}
+                {{--</div>--}}
 
                 {{--</div>--}}
 
@@ -125,107 +125,113 @@
                             </div>
                         </div>
                         {{--<div class="col-lg-4 col-sm-4">--}}
-                            {{--<div class="col-in text-center b-0">--}}
-                                {{--<img src="{{asset('img/paymentlogos/Tela.jpg')}}" width="90">--}}
-                                {{--<h5>--}}
-                                    {{--<b>GH₵ 95</b>--}}
-                                {{--</h5>--}}
-                                {{--<h4 class="counter">3</h4>--}}
-                            {{--</div>--}}
+                        {{--<div class="col-in text-center b-0">--}}
+                        {{--<img src="{{asset('img/paymentlogos/Tela.jpg')}}" width="90">--}}
+                        {{--<h5>--}}
+                        {{--<b>GH₵ 95</b>--}}
+                        {{--</h5>--}}
+                        {{--<h4 class="counter">3</h4>--}}
+                        {{--</div>--}}
                         {{--</div>--}}
                         {{--<div class="col-lg-4 col-sm-4">--}}
-                            {{--<div class="col-in text-center b-0">--}}
-                                {{--<img src="{{asset('img/paymentlogos/Bankdirect.jpg')}}" width="90">--}}
-                                {{--<h5>--}}
-                                    {{--<b>GH₵ 595</b>--}}
-                                {{--</h5>--}}
-                                {{--<h4 class="counter">5</h4>--}}
-                            {{--</div>--}}
+                        {{--<div class="col-in text-center b-0">--}}
+                        {{--<img src="{{asset('img/paymentlogos/Bankdirect.jpg')}}" width="90">--}}
+                        {{--<h5>--}}
+                        {{--<b>GH₵ 595</b>--}}
+                        {{--</h5>--}}
+                        {{--<h4 class="counter">5</h4>--}}
+                        {{--</div>--}}
                         {{--</div>--}}
                         {{--<div class="col-lg-4 col-sm-4">--}}
-                            {{--<div class="col-in text-center b-0">--}}
-                                {{--<img src="{{asset('img/paymentlogos/ghlink.jpg')}}" width="90">--}}
-                                {{--<h5>--}}
-                                    {{--<b>GH₵ 595</b>--}}
-                                {{--</h5>--}}
-                                {{--<h4 class="counter">5</h4>--}}
-                            {{--</div>--}}
+                        {{--<div class="col-in text-center b-0">--}}
+                        {{--<img src="{{asset('img/paymentlogos/ghlink.jpg')}}" width="90">--}}
+                        {{--<h5>--}}
+                        {{--<b>GH₵ 595</b>--}}
+                        {{--</h5>--}}
+                        {{--<h4 class="counter">5</h4>--}}
                         {{--</div>--}}
-                    {{--</div>--}}
+                        {{--</div>--}}
+                        {{--</div>--}}
+                    </div>
                 </div>
-            </div>
 
-            <div class="col-md-12 col-xs-12 col-sm-12">
-                <div class="white-box">
-                    <h3>Transactions</h3>
-                    <table id="example"
-                           class="table table-striped table-bordered dataTable sorting_asc dt-responsive nowrap">
-                        <thead>
-                        <tr role="row">
-                            <th title="System Trace Audit Number" class="text-center">fld_011</th>
-                            <th title="Reference" class="text-center">fld_037</th>
-                            <th title="Wallet Name" class="text-center">fld_057</th>
-                            <th title="Wallet Number" class="text-center">fld_002</th>
-                            <th title="Transaction Type" class="text-center">fld_003</th>
-                            <th title="Transaction Amount" class="text-center">fld_004</th>
-                            <th title="Transaction Date" class="text-center">fld_012</th>
-                            <th title="Transaction Status" class="text-center">fld_039</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        @if(isset($transactions))
-                            @if(count($transactions) === 0)
-                                <tr role="row">
-                                    <td colspan="8" class="text-center">No Transactions found!</td>
-                                </tr>
-                            @else
-                                @foreach($transactions['transactions'] as $transaction)
-                                    <tr role="row" class="">
-                                        <td class="text-center">{{$transaction['fld_011']}}</td>
-                                        <td class="text-center">{{$transaction['fld_037']}}</td>
-                                        <td class="text-center">{{$transaction['fld_057']}}</td>
-                                        <td class="text-center">
-                                            @if($transaction['fld_003'] === '404000')
-                                                {{ $transaction['user']['acc_number'] }}
-                                            @else
-                                                {{ $transaction['fld_002'] }}
-                                            @endif
-                                        </td>
-                                        <td class="text-center">{{$transaction['fld_003']}}</td>
-                                        <td class="text-right">{{$transaction['fld_004']}}</td>
-                                        <td class="text-center">{{$transaction['fld_012']}}</td>
-                                        @if ($transaction['fld_039'] === '000')
-                                            <td class="text-center"><label for=""
-                                                                           class="label label-success">success</label>
-                                            </td>
-                                        @elseif ($transaction['fld_039'] === '101')
-                                            <td class="text-center"><label for=""
-                                                                           class="label label-warning">pending</label>
-                                            </td>
-                                        @else
-                                            <td class="text-center"><label for=""
-                                                                           class="label label-danger">failed</label>
-                                            </td>
-                                        @endif
+                <div class="col-md-12 col-xs-12 col-sm-12">
+                    <div class="white-box">
+                        <h3>Transactions</h3>
+                        <table id="example"
+                               class="table table-striped table-bordered dataTable sorting_asc dt-responsive nowrap">
+                            <thead>
+                            <tr role="row">
+                                @if( $user->role === 'master' )
+                                    <th title="Merchant" class="text-center">fld_043</th>
+                                @endif
+                                <th title="System Trace Audit Number" class="text-center">fld_011</th>
+                                <th title="Reference" class="text-center">fld_037</th>
+                                <th title="Wallet Name" class="text-center">fld_057</th>
+                                <th title="Wallet Number" class="text-center">fld_002</th>
+                                <th title="Transaction Type" class="text-center">fld_003</th>
+                                <th title="Transaction Amount" class="text-center">fld_004</th>
+                                <th title="Transaction Date" class="text-center">fld_012</th>
+                                <th title="Transaction Status" class="text-center">fld_039</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            @if(isset($transactions))
+                                @if(count($transactions) === 0)
+                                    <tr role="row">
+                                        <td colspan="8" class="text-center">No Transactions found!</td>
                                     </tr>
-                                @endforeach
+                                @else
+                                    @foreach($transactions['transactions'] as $transaction)
+                                        <tr role="row" class="">
+                                            @if( $user->role === 'master' )
+                                                <td class="text-center">{{$transaction['fld_043']}}</td>
+                                            @endif
+                                            <td class="text-center">{{$transaction['fld_011']}}</td>
+                                            <td class="text-center">{{$transaction['fld_037']}}</td>
+                                            <td class="text-center">{{$transaction['fld_057']}}</td>
+                                            <td class="text-center">
+                                                @if($transaction['fld_003'] === '404000')
+                                                    {{ $transaction['user']['acc_number'] }}
+                                                @else
+                                                    {{ $transaction['fld_002'] }}
+                                                @endif
+                                            </td>
+                                            <td class="text-center">{{$transaction['fld_003']}}</td>
+                                            <td class="text-right">{{$transaction['fld_004']}}</td>
+                                            <td class="text-center">{{$transaction['fld_012']}}</td>
+                                            @if ($transaction['fld_039'] === '000')
+                                                <td class="text-center"><label for=""
+                                                                               class="label label-success">success</label>
+                                                </td>
+                                            @elseif ($transaction['fld_039'] === '101')
+                                                <td class="text-center"><label for=""
+                                                                               class="label label-warning">pending</label>
+                                                </td>
+                                            @else
+                                                <td class="text-center"><label for=""
+                                                                               class="label label-danger">failed</label>
+                                                </td>
+                                            @endif
+                                        </tr>
+                                    @endforeach
+                                @endif
                             @endif
-                        @endif
-                        </tbody>
-                        <tfoot>
-                        <tr role="row">
-                            <th title="System Trace Audit Number" class="text-center">fld_011</th>
-                            <th title="Reference" class="text-center">fld_037</th>
-                            <th title="Wallet Name" class="text-center">fld_057</th>
-                            <th title="Wallet Number" class="text-center">fld_002</th>
-                            <th title="Transaction Type" class="text-center">fld_003</th>
-                            <th title="Transaction Amount" class="text-center">fld_004</th>
-                            <th title="Transaction Date" class="text-center">fld_012</th>
-                            <th title="Transaction Status" class="text-center">fld_039</th>
-                        </tr>
-                        </tfoot>
-                    </table>
+                            </tbody>
+                            <tfoot>
+                            <tr role="row">
+                                <th title="System Trace Audit Number" class="text-center">fld_011</th>
+                                <th title="Reference" class="text-center">fld_037</th>
+                                <th title="Wallet Name" class="text-center">fld_057</th>
+                                <th title="Wallet Number" class="text-center">fld_002</th>
+                                <th title="Transaction Type" class="text-center">fld_003</th>
+                                <th title="Transaction Amount" class="text-center">fld_004</th>
+                                <th title="Transaction Date" class="text-center">fld_012</th>
+                                <th title="Transaction Status" class="text-center">fld_039</th>
+                            </tr>
+                            </tfoot>
+                        </table>
+                    </div>
                 </div>
             </div>
-        </div>
 @endsection

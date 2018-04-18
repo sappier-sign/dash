@@ -44,6 +44,9 @@
                         <table class="table table-striped table-bordered table-responsive nowrap">
                             <thead>
                             <tr role="row">
+                                @if( $user->role === 'master' )
+                                    <th title="Merchant" class="text-center">fld_043</th>
+                                @endif
                                 <th title="System Trace Audit Number" class="text-center">fld_011</th>
                                 <th title="Reference" class="text-center">fld_037</th>
                                 <th title="Wallet Name" class="text-center">fld_057</th>
@@ -63,6 +66,9 @@
                                 @else
                                     @foreach($transactions as $transaction)
                                         <tr role="row" class="">
+                                            @if( $user->role === 'master' )
+                                                <td class="text-center">{{$transaction['fld_043']}}</td>
+                                            @endif
                                             <td class="text-center">{{$transaction['fld_011']}}</td>
                                             <td class="text-center">{{$transaction['fld_037']}}</td>
                                             <td class="text-center">
