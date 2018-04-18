@@ -66,6 +66,7 @@ class UserController extends Controller
         $user['apiuser']    =   uniqid($string);
         $user['email']      =   strtolower($request->input('api-email'));
         $user['company']    =   ucwords(strtolower($request->input('company')));
+        $user['pass_code']  =   strtoupper(md5(microtime(1)));
         $user['role']       =   'user';
 
         $user['password']   =   bcrypt('admin');
