@@ -33,7 +33,7 @@ class TransactionsController extends Controller
         $range = explode(' - ', $date_range);
         $transactionController = new TransactionsController();
         $transactions = $transactionController->fetchTransactions($range[0], $range[1]);
-        return view('pages.report_view', ['user' => Auth::user(), 'transactions' => $transactions]);
+        return view('pages.report_view', ['user' => Auth::user(), 'transactions' => $transactions, 'start' => $range[0], 'end' => $range[1]]);
 	}
 
     public function getReport(Request $request)
