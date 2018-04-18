@@ -64,4 +64,9 @@ class TransactionsController extends Controller
     {
         return Transaction::getTransactionsCountByMonth();
 	}
+
+    public function downloadReport($start, $end)
+    {
+        return Transaction::downloadReport($start, $end);
+	}
 }

@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class Transaction extends Model
 {
@@ -40,13 +41,17 @@ class Transaction extends Model
 	}
 
 	public static function getAllTransactions(){
-        ini_set('max_execution_time', 120);
-        $transactions = [];
+
         if (Auth::user()->role <> 'master') {
+
             $transactions = Transaction::where('fld_042', Auth::user()->merchant_id)->with('user')->latest('fld_012')->paginate(20);
+
         } else {
+
             $transactions = Transaction::latest('fld_012')->with('user')->limit(10)->paginate(20);
+
         }
+
     	return view('pages.transactions', ['user' => Auth::user(), 'transactions' => $transactions]);
 	}
 
@@ -132,6 +137,7 @@ class Transaction extends Model
         $_transactions = [];
         foreach ($transactions as $transaction) {
             array_push($_transactions, [
+                'fld_043'     =>  $transaction->fld_043,
                 'fld_011'     =>  $transaction->fld_011,
                 'fld_037'     =>  $transaction->fld_037,
                 'fld_057'     =>  $transaction->fld_057,
@@ -247,6 +253,7 @@ class Transaction extends Model
         foreach ($transactions as $transaction) {
 
             array_push($_transactions, [
+                'Merchant'      =>  $transaction->fld_043,
                 'STAN'          =>  $transaction->fld_011,
                 'TranId'        =>  $transaction->fld_037,
                 'Platform'      =>  $transaction->fld_057,
@@ -319,11 +326,41 @@ class Transaction extends Model
         ];
     }
 
-    public static function handleFetchTransactions($transactions, $results)
+    public static function downloadReport($start, $end)
     {
+        $transactions = self
+            ::whereBetween('fld_012', [Carbon::parse($start)->startOfDay(), Carbon::parse($end)->endOfDay()])
+            ->get([
+                "fld_002",
+                "fld_003",
+                "fld_004",
+                "fld_011",
+                "fld_012",
+                "fld_037",
+                "fld_039",
+                "fld_042",
+                "fld_043",
+                "fld_057",
+                "fld_103",
+                "fld_116",
+                "fld_117",
+                "fld_123",
+                "rfu_001",
+                "rfu_002",
+                "rfu_003",
+                "rfu_004",
+                "rfu_005"
+            ]);
+
+        $content = '';
 
         foreach ($transactions as $transaction) {
-
+            $content .= implode(",", $transaction->toArray())."\n\r";
         }
+
+        Storage::disk('local')->put('trans.csv', $content);
+
+        return $transactions;
     }
+
 }
