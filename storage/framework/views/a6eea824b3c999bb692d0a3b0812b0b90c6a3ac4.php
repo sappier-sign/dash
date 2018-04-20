@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -29,7 +28,7 @@
                                 <div class="table-responsive">
                                     <table class="table table-condensed table-hover table-striped">
                                         <thead>
-                                        <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">SETTLEMENTS SUMMARY</caption>
+                                        <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">SETTLEMENTS SUMMARY  FOR <?php echo e($date->toFormattedDateString()); ?></caption>
                                         <tr style="text-align: center">
                                             <th width="250"> R-SWITCH </th>
                                             <th width="150">NO. OF TRANSACTIONS</th>

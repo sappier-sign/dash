@@ -112,7 +112,8 @@ class TransactionsController extends Controller
                 $totals[$item->RSWITCH]['net_amount'] +=(double) $item->NET;
             }
         }
-
+        Log::info('DATE Format is '.gettype($date));
+        Log::debug($date);
 
         return view('pages.settlement_view')->withUser(Auth::user())
             ->withSettlements($settlement)->withSwitches($totals)
