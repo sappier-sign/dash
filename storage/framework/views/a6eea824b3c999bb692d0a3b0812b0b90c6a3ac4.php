@@ -29,7 +29,7 @@
                                 <div class="table-responsive">
                                     <table class="table table-condensed table-hover table-striped">
                                         <thead>
-                                        <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">TRANSACTIONS SUMMARY</caption>
+                                        <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">SETTLEMENTS SUMMARY</caption>
                                         <tr style="text-align: center">
                                             <th width="250"> R-SWITCH </th>
                                             <th width="150">NO. OF TRANSACTIONS</th>
@@ -80,7 +80,7 @@
 
                                     <table class="table table-condensed table-hover table-striped">
                                         <thead>
-                                        <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">TRANSACTION DETAILS</caption>
+                                        <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">SETTLEMENT DETAILS</caption>
                                         <tr>
                                             <th width="250">R-SWITCH</th>
                                             <th>NO. TRANSACTIONS</th>
