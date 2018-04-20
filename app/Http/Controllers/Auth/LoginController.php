@@ -61,4 +61,9 @@ class LoginController extends Controller
 		return redirect('/login');
     }
 
+    public function showLoginForm()
+    {
+        return view('layouts.login');
+    }
+
 }
