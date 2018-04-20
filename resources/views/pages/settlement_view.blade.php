@@ -29,7 +29,7 @@
                                 <div class="table-responsive">
                                     <table class="table table-condensed table-hover table-striped">
                                         <thead>
-                                        <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">SETTLEMENTS SUMMARY  FOR {{toFormattedDateString($date)}}</caption>
+                                        <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">SETTLEMENTS SUMMARY  FOR {{$date->toFormattedDateString()}}</caption>
                                         <tr style="text-align: center">
                                             <th width="250"> R-SWITCH </th>
                                             <th width="150">NO. OF TRANSACTIONS</th>
@@ -59,6 +59,17 @@
                                             </td>
                                         </tr>
                                         @endforeach
+                                        <tr style="text-align: right">
+                                            <td style="text-align: left" colspan="3">
+
+                                            </td>
+                                            <td>
+                                                Total <b> Charges </b>
+                                            </td>
+                                            <td>
+                                                Total <b> Net Amount </b>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
