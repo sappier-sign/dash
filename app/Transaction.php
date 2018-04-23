@@ -401,8 +401,11 @@ class Transaction extends Model
             $contents .= $row."\n\r";
         }
 
-        Storage::disk('local')->put($file_name, $contents);
+        Storage::disk('public')->put($file_name, $contents);
 
+        return redirect()->to(Storage::url($file_name));
+
+        return response()->download('storage\public\\'.$file_name);
         return response()->download(storage_path('app\\'.$file_name));
     }
 
