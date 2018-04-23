@@ -403,10 +403,7 @@ class Transaction extends Model
 
         Storage::disk('public')->put($file_name, $contents);
 
-        return redirect()->to(Storage::url($file_name));
-
-        return response()->download('storage\public\\'.$file_name);
-        return response()->download(storage_path('app\\'.$file_name));
+        return response()->download(storage_path("app/public/{$file_name}"));
     }
 
 }
