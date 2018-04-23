@@ -65,4 +65,9 @@ class User extends Authenticatable
         $user['password']   =   bcrypt('admin');
         return User::create($user);
     }
+
+    public function terminals()
+    {
+        return $this->hasMany(Terminal::class, 'merchant_id', 'merchant_id');
+    }
 }

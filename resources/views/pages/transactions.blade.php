@@ -48,9 +48,12 @@
                                 @if( $user->role === 'master' )
                                     <th title="Merchant" class="text-center">Merchant</th>
                                 @endif
+                                @if( $user->terminals->count())
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
+                                @endif
                                 <th title="System Trace Audit Number" class="text-center">Stan</th>
                                 <th title="Reference" class="text-center">Transaction Id</th>
-                                <th title="Wallet Name" class="text-center">Wallet Name</th>
+                                <th title="Wallet Name" class="text-center">R Switch</th>
                                 <th title="Wallet Number" class="text-center">Wallet Number</th>
                                 <th title="Transaction Type" class="text-center">Processing Code</th>
                                 <th title="Transaction Amount" class="text-center">Amount</th>
@@ -69,6 +72,9 @@
                                         <tr role="row" class="">
                                             @if( $user->role === 'master' )
                                                 <td class="text-center">{{$transaction['fld_043']}}</td>
+                                            @endif
+                                            @if( $user->terminals->count())
+                                                <td class="text-center">{{ $transaction['fld_041'] ?? __('n/a') }}</td>
                                             @endif
                                             <td class="text-center">{{$transaction['fld_011']}}</td>
                                             <td class="text-center">{{$transaction['fld_037']}}</td>
@@ -108,9 +114,12 @@
                                 @if( $user->role === 'master' )
                                     <th title="Merchant" class="text-center">Merchant</th>
                                 @endif
+                                @if( $user->terminals->count())
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
+                                @endif
                                 <th title="System Trace Audit Number" class="text-center">Stan</th>
                                 <th title="Reference" class="text-center">Transaction Id</th>
-                                <th title="Wallet Name" class="text-center">Wallet Name</th>
+                                <th title="Wallet Name" class="text-center">R Switch</th>
                                 <th title="Wallet Number" class="text-center">Wallet Number</th>
                                 <th title="Transaction Type" class="text-center">Processing Code</th>
                                 <th title="Transaction Amount" class="text-center">Amount</th>

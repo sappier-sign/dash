@@ -138,6 +138,7 @@ class Transaction extends Model
         foreach ($transactions as $transaction) {
             array_push($_transactions, [
                 'fld_043'     =>  $transaction->fld_043,
+                'fld_041'     =>  $transaction->fld_041,
                 'fld_011'     =>  $transaction->fld_011,
                 'fld_037'     =>  $transaction->fld_037,
                 'fld_057'     =>  $transaction->fld_057,
@@ -254,6 +255,7 @@ class Transaction extends Model
 
             array_push($_transactions, [
                 'Merchant'      =>  $transaction->fld_043,
+                'Terminal'      =>  $transaction->fld_041,
                 'STAN'          =>  $transaction->fld_011,
                 'TranId'        =>  $transaction->fld_037,
                 'Platform'      =>  $transaction->fld_057,

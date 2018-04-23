@@ -133,13 +133,16 @@
                 {{--</div>--}}
                 <div class="col-sm-12">
                     <div class="white-box col-sm-12">
-                        <h3>Most Resent Transactions</h3>
+                        <h3>Most Recent Transactions</h3>
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid"
                                aria-describedby="example1_info">
                             <thead>
                             <tr role="row">
                                 @if( $user->role === 'master' )
                                     <th title="Merchant" class="text-center">Merchant</th>
+                                @endif
+                                @if( $user->terminals->count())
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
                                 @endif
                                 <th title="System Trace Audit Number" class="text-center">Stan</th>
                                 <th title="Reference" class="text-center">Transaction Id</th>
@@ -162,6 +165,9 @@
                                         <tr role="row" class="">
                                             @if( $user->role === 'master' )
                                                 <td class="text-center">{{$transaction['Merchant']}}</td>
+                                            @endif
+                                            @if( $user->terminals->count() )
+                                                <td class="text-center">{{ $transaction['Terminal'] ?? __('n/a')}}</td>
                                             @endif
                                             <td class="text-center">{{$transaction['STAN']}}</td>
                                             <td class="text-center">{{$transaction['TranId']}}</td>
@@ -198,6 +204,9 @@
                             <tr role="row">
                                 @if( $user->role === 'master' )
                                     <th title="Merchant" class="text-center">Merchant</th>
+                                @endif
+                                @if( $user->terminals->count())
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
                                 @endif
                                 <th title="System Trace Audit Number" class="text-center">Stan</th>
                                 <th title="Reference" class="text-center">Transaction Id</th>
