@@ -16,7 +16,7 @@
                 <div class="center p-20 col-md-2 pull-right">
                     <input type="hidden" name="date_range" value="{{ session('date_range') ?? '' }}">
                     <span class="hide-menu ">
-                                            <a href="{{ url('reports/download/'.$start.'/'.$end) }}" target="_blank"
+                                            <a href="{{ url($download_link) }}" target="_blank"
                                                class="btn btn-info btn-block btn-rounded waves-effect waves-light">download csv</a>
                                         </span>
                 </div>
@@ -44,7 +44,7 @@
                                     </h4>
                                     <h5> {{$user['address']}}</h5>
                                     <h5>
-                                        <b>Date:</b> 17th September 2017 - 17th October 2017</h5>
+                                        <b>Date:</b> {{ \Carbon\Carbon::parse($start)->toFormattedDateString() }} - {{ \Carbon\Carbon::parse($end)->toFormattedDateString() }}</h5>
                                 </div>
                             </div>
                         </div>

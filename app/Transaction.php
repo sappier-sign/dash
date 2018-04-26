@@ -328,62 +328,32 @@ class Transaction extends Model
         ];
     }
 
-    public static function downloadReport($start, $end)
+    public static function downloadReport($transactions)
     {
-        if (Auth::user()->role === 'master') {
-            $transactions = self
-                ::whereBetween('fld_012', [Carbon::parse($start)->startOfDay(), Carbon::parse($end)->endOfDay()])
-                ->get([
-                    "fld_002",
-                    "fld_003",
-                    "fld_004",
-                    "fld_011",
-                    "fld_012",
-                    "fld_037",
-                    "fld_039",
-                    "fld_041",
-                    "fld_042",
-                    "fld_043",
-                    "fld_057",
-                    "fld_103",
-                    "fld_116",
-                    "fld_117",
-                    "rfu_001",
-                    "rfu_002",
-                    "rfu_003",
-                    "rfu_004",
-                    "rfu_005"
-                ]);
-        } else {
-            $transactions = self
-                ::whereBetween('fld_012', [Carbon::parse($start)->startOfDay(), Carbon::parse($end)->endOfDay()])
-                ->where('fld_042', Auth::user()->merchant_id)
-                ->get([
-                    "fld_002",
-                    "fld_003",
-                    "fld_004",
-                    "fld_011",
-                    "fld_012",
-                    "fld_037",
-                    "fld_039",
-                    "fld_041",
-                    "fld_042",
-                    "fld_043",
-                    "fld_057",
-                    "fld_103",
-                    "fld_116",
-                    "fld_117",
-                    "rfu_001",
-                    "rfu_002",
-                    "rfu_003",
-                    "rfu_004",
-                    "rfu_005"
-                ]);
-        }
+        $flds = [
+            'fld_002',
+            'fld_003',
+            'fld_004',
+            'fld_011',
+            'fld_012',
+            'fld_037',
+            'fld_039',
+            'fld_041',
+            'fld_042',
+            'fld_043',
+            'fld_057',
+            'fld_103',
+            'fld_116',
+            'fld_117',
+            'rfu_001',
+            'rfu_002',
+            'rfu_003',
+            'rfu_004',
+            'rfu_005'
+        ];
+        $contents = '"subscriber_number","processing_code","amount","stan","transaction_date","transaction_id","response_code","terminal_id","merchant_id","merchant_name","r-switch","account_number","desc","account_issuer","rfu_001","rfu_002","rfu_003","rfu_004","rfu_005"'."\n";
 
-        $contents = '"subscriber_number","processing_code","amount","stan","transaction_date","transaction_id","response_code","terminal_id","merchant_id","merchant_name","r-switch","account_number","desc","account_issuer","rfu_001","rfu_002","rfu_003","rfu_004","rfu_005"'."\n\r";
-
-        $file_name = str_replace('-', '', Auth::user()->merchant_id).str_replace('-', '', $start).str_replace('-', '', $end).'.csv';
+        $file_name = str_replace('-', '', Auth::user()->merchant_id).str_replace('-', '', date('YmdHis')).'.csv';
 
         foreach ($transactions as $transaction) {
 
@@ -393,19 +363,61 @@ class Transaction extends Model
 
             foreach ($fields as $key => $value) {
 
-                $row .= '"'. $value. '"';
+                if (in_array($key, $flds)){
+                    if ($key === 'fld_004') {
+                        $value = ( (int) $value )/ 100;
+                    }
+                    $row .= '"'. $value. '"';
 
-                if ($key <> 'rfu_005') {
-                    $row .= ',';
+                    if ($key <> 'rfu_005') {
+                        $row .= ',';
+                    }
                 }
             }
 
-            $contents .= $row."\n\r";
+            $contents .= $row."\n";
         }
 
         Storage::disk('public')->put($file_name, $contents);
 
         return response()->download(storage_path("app/public/{$file_name}"));
+    }
+
+    public static function compositeSearch($data)
+    {
+        if (Auth::user()->role <> 'master') {
+            $transactions   = Transaction::whereBetween('fld_012', [
+                Carbon::parse($data['start'])->startOfDay()->toDateTimeString(),
+                Carbon::parse($data['end'])->endOfDay()->toDateTimeString()
+            ])->where('fld_042', Auth::user()->merchant_id);
+        } else {
+            $transactions   = Transaction::whereBetween('fld_012', [
+                Carbon::parse($data['start'])->startOfDay()->toDateTimeString(),
+                Carbon::parse($data['end'])->endOfDay()->toDateTimeString()
+            ]);
+        }
+
+
+        if ($data['status'] <> 'all') {
+            $transactions = $transactions->where('fld_039', $data['status']);
+        }
+
+        if ($data['r_switch'] <> 'all') {
+            $transactions = $transactions->where('fld_057', $data['r_switch']);
+        }
+
+        if ($data['terminal_id'] <> 'all') {
+            $transactions = $transactions->where('fld_041', $data['terminal_id']);
+        }
+
+        if ($data['processing_code'] <> 'all') {
+            $transactions = $transactions->where('fld_003', $data['processing_code']);
+        }
+
+        return $transactions->get();
+
+//        return [$transactions->count(), $transactions->toSql(), $transactions->getBindings(), $request->all()];
+
     }
 
 }

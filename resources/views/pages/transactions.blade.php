@@ -25,8 +25,10 @@
                                             <option value="fld_041">Terminal Id</option>
                                             <option value="fld_037">Transaction Id</option>
                                             <option value="fld_057">R Switch</option>
+                                            <option value="fld_003">Processing Code</option>
                                             <option value="fld_002">Wallet Number</option>
                                             <option value="fld_012">Date</option>
+                                            <option value="fld_039">Status</option>
                                         </select>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
