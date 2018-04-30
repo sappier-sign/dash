@@ -25,14 +25,14 @@
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="white-box">
                         <div class="row row-in">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12">
                                 <div class="table-responsive">
                                     <table class="table table-condensed table-hover table-striped">
                                         <thead>
                                         <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">SETTLEMENTS SUMMARY  FOR {{ $date->toFormattedDateString() }}</caption>
                                         <tr style="text-align: center">
-                                            <th width="250"> R-SWITCH </th>
-                                            <th width="150">NO. OF TRANSACTIONS</th>
+                                            <th width="200"> R-SWITCH </th>
+                                            <th width="200">NO. OF TRANSACTIONS</th>
                                             <th>TOTAL AMOUNT</th>
                                             <th>CHARGES</th>
                                             <th>NET AMOUNT</th>
@@ -40,13 +40,13 @@
                                         </thead>
                                         <tbody>
                                         @foreach($switches as $switch)
-                                        <tr style="text-align: right">
+                                        <tr style="text-align: center">
                                             <td style="text-align: left">
                                                 <img src="{{ asset($switch['image']) }}" style="width: 50px; height: 30px" alt="card Symbol">
                                                 <b>{{ $switch['name'] }}</b>
                                             </td>
                                             <td>
-                                                {{ $switch['transaction_count'] }}
+                                                <span style="margin-left: 2rem !important; display: block;">{{ $switch['transaction_count'] }}</span>
                                             </td>
                                             <td>
                                                 {{ $switch['transaction_amount'] }}
@@ -59,6 +59,21 @@
                                             </td>
                                         </tr>
                                         @endforeach
+                                        <tr style="text-align: left; font-size: 1.8rem; font-weight: 700;">
+                                            <td>
+                                                <span style="">Totals</span>
+                                            </td>
+                                            {{--<td></td>--}}
+                                            <td style="text-align: left" colspan="2">
+
+                                            </td>
+                                            <td style="">
+                                                <span style="margin-left: 4.7rem !important; display: block;"> {{ $totalCharge }}</span>
+                                            </td>
+                                            <td style="">
+                                                <span style="margin-left: 4.4rem !important; display: block;">{{ $totalNet }}</span>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </div>
@@ -70,7 +85,7 @@
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="white-box">
                         <div class="row row-in">
-                            <div class="col-lg-12 col-md-12 col-sm-12">
+                            <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12">
                                 <div class="table-responsive">
                                     <!-- 2nd Table added -->
 
@@ -78,8 +93,8 @@
                                         <thead>
                                         <caption style="caption-side: top; font-weight: bold; font-size: 1.8rem;" align="bottom">SETTLEMENT DETAILS</caption>
                                         <tr>
-                                            <th width="250">R-SWITCH</th>
-                                            <th>NO. TRANSACTIONS</th>
+                                            <th width="200">R-SWITCH</th>
+                                            <th>NO. OF TRANSACTIONS</th>
                                             <th>TYPE</th>
                                             <th>TOTAL AMOUNT</th>
                                             <th>NET AMOUNT</th>
@@ -96,10 +111,10 @@
                                                     <img src="{{ asset($detail['image']) }}" style="width: 50px; height: 30px" alt="card Symbol">
                                                     <b>{{ $detail['name'] }}</b>
                                                 </td>
-                                                <td>{{ $detail['volume'] }}</td>
+                                                <td style="text-align: center">{{ $detail['volume'] }}</td>
                                                 <td>{{ $detail['type'] }}</td>
-                                                <td>{{ $detail['amount'] }}</td>
-                                                <td>{{ $detail['net_amount'] }}</td>
+                                                <td style="text-align: center">{{ $detail['amount'] }}</td>
+                                                <td style="text-align: center">{{ $detail['net_amount'] }}</td>
                                             </tr>
                                         @endforeach
                                         {{--<tr>--}}

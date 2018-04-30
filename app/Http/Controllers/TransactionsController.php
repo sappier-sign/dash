@@ -115,9 +115,20 @@ class TransactionsController extends Controller
         Log::info('DATE Format is '.gettype($date));
         Log::debug($date);
 
+        //calculate the total charge
+        $totalCharge = 0; $totalNet = 0;
+        foreach($settlement as $item) {
+            $totalCharge += $item->CHARGES;
+            $totalNet += $item->NET;
+        }
+
+        //calculate the total net
+
         return view('pages.settlement_view')->withUser(Auth::user())
             ->withSettlements($settlement)->withSwitches($totals)
-            ->withDate($date)->withDetails($details);
+            ->withDate($date)->withDetails($details)
+            ->with('totalCharge',$totalCharge)
+            ->with('totalNet',$totalNet);
     }
 
     public function getReport(Request $request)

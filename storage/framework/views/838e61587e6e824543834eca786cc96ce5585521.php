@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
     <div id="page-wrapper">
         <div class="container-fluid">
@@ -138,6 +137,9 @@
                                aria-describedby="example1_info">
                             <thead>
                             <tr role="row">
+                                <?php if( $user->role === 'master' ): ?>
+                                    <th title="Merchant" class="text-center">fld_043</th>
+                                <?php endif; ?>
                                 <th title="System Trace Audit Number" class="text-center">fld_011</th>
                                 <th title="Reference" class="text-center">fld_037</th>
                                 <th title="Wallet Name" class="text-center">fld_057</th>
@@ -157,6 +159,9 @@
                                 <?php else: ?>
                                     <?php $__currentLoopData = $transactions['transactions']; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr role="row" class="">
+                                            <?php if( $user->role === 'master' ): ?>
+                                                <td class="text-center"><?php echo e($transaction['Merchant']); ?></td>
+                                            <?php endif; ?>
                                             <td class="text-center"><?php echo e($transaction['STAN']); ?></td>
                                             <td class="text-center"><?php echo e($transaction['TranId']); ?></td>
                                             <td class="text-center"><?php echo e($transaction['Platform']); ?></td>
