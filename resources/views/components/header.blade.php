@@ -24,9 +24,8 @@
         <ul class="nav navbar-top-links navbar-right pull-right">
             <li>
                 <p class="profile-pic" style="margin-top: 5px">
-                    {{--<img src="{{asset('img/users/KofiAboagye.png')}}" alt="user-img"--}}
-                    {{--width="36" class="img-circle">--}}
-                    <b class="hidden-xs text-danger">Float Balance: GHC 100,000.00</b></p>
+                    <b class="hidden-xs text-danger">Float Balance: GHC {{ ( int) $user['wallet_balance'] / 100 }}</b>
+                </p>
             </li>
             <li>
                 <p class="profile-pic" style="margin-top: 5px">
