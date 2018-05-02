@@ -56,7 +56,7 @@
 <!--Wave Effects -->
 <script src="{{asset('js/waves.js')}}"></script>
 <!-- Custom Theme JavaScript -->
-<script src="{{asset('js/myadmin.js')}}"></script>
+<script src="{{asset('js/myadmin1.js')}}"></script>
 <script src="{{asset('js/dashboard1.js')}}"></script>
 @stack('scripts')
 </body>
