@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 @include('components.head')
+@stack('styles')
 <body>
 <!-- Preloader -->
 <div class="preloader">
@@ -57,5 +58,6 @@
 <!-- Custom Theme JavaScript -->
 <script src="{{asset('js/myadmin.js')}}"></script>
 <script src="{{asset('js/dashboard1.js')}}"></script>
+@stack('scripts')
 </body>
 </html>

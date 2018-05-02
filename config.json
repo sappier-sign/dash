@@ -1,0 +1,9 @@
+{
+  "php_timezone" : "Africa/Accra",
+  "debug " : true,
+  "user" : "teller",
+  "database" : "teller_new",
+  "password" : "pass1234",
+  "host" : "127.0.0.1",
+  "port" : "3306"
+}

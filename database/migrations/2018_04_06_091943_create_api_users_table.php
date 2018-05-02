@@ -21,7 +21,7 @@ class CreateApiUsersTable extends Migration {
 			$table->integer('status')->default(1);
 			$table->string('actions', 30);
 			$table->float('amount_limit', 10, 0)->default(500);
-			$table->primary(['id','user_name']);
+			//$table->primary(['id','user_name']);
 		});
 	}
 

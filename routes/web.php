@@ -12,7 +12,10 @@ Route::prefix('merchants')->group(function (){
 Route::prefix('reports')->group(function (){
     Route::get('/', 'TransactionsController@reports');
     Route::get('{date_range}', 'TransactionsController@reportsView');
+    Route::get('settlement/{date?}','TransactionsController@settlementView')->name('settlement');
     Route::post('view', 'TransactionsController@getReport');
+
+    Route::post('settlement','TransactionsController@getSettlement');
     Route::get('download/{start}/{end}', 'TransactionsController@downloadReport');
 });
 
@@ -30,7 +33,6 @@ Route::prefix('password')->group(function (){
     Route::post('change', 'UserController@changePassword');
 });
 
-Route::get('login', 'LoginController@index');
 Route::get('dashboard', 'LoginController@getTransactions');
 Route::get('', 'LoginController@redirectToHome');
 
