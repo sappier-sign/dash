@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
 
     <div id="page-wrapper">
@@ -16,8 +15,9 @@
                         </div>
 
                         <div class='col-md-4'>
-                            <form class="form-horizontal row" method="post" action="{{url('transactions/filter')}}">
-                                {{csrf_field()}}
+                            <form class="form-horizontal row" method="post" action="<?php echo e(url('transactions/filter')); ?>">
+                                <?php echo e(csrf_field()); ?>
+
                                 <div class="col-sm-12">
                                     <div class="col-sm-12 col-md-6">
                                         <select name="parameter" id="" class="form-control" required>
@@ -25,15 +25,10 @@
                                             <option value="fld_041">Terminal Id</option>
                                             <option value="fld_037">Transaction Id</option>
                                             <option value="fld_057">R Switch</option>
-
                                             <option value="fld_003">Processing Code</option>
                                             <option value="fld_002">Wallet Number</option>
                                             <option value="fld_012">Date</option>
                                             <option value="fld_039">Status</option>
-
-                                            <option value="fld_002">Wallet Number</option>
-                                            <option value="fld_012">Date</option>
-
                                         </select>
                                     </div>
                                     <div class="col-sm-12 col-md-6">
@@ -52,12 +47,12 @@
                         <table class="table table-striped table-bordered table-responsive nowrap">
                             <thead>
                             <tr role="row">
-                                @if( $user->role === 'master' )
+                                <?php if( $user->role === 'master' ): ?>
                                     <th title="Merchant" class="text-center">Merchant</th>
-                                @endif
-                                @if( $user->terminals->count())
+                                <?php endif; ?>
+                                <?php if( $user->terminals->count()): ?>
                                     <th title="Terminals" class="text-center">Terminal Id</th>
-                                @endif
+                                <?php endif; ?>
                                 <th title="System Trace Audit Number" class="text-center">Stan</th>
                                 <th title="Reference" class="text-center">Transaction Id</th>
                                 <th title="Wallet Name" class="text-center">R Switch</th>
@@ -69,61 +64,64 @@
                             </tr>
                             </thead>
                             <tbody>
-                            @if(isset($transactions))
-                                @if(count($transactions) === 0)
+                            <?php if(isset($transactions)): ?>
+                                <?php if(count($transactions) === 0): ?>
                                     <tr role="row">
                                         <td colspan="8" class="text-center">No Transactions found!</td>
                                     </tr>
-                                @else
-                                    @foreach($transactions as $transaction)
+                                <?php else: ?>
+                                    <?php $__currentLoopData = $transactions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $transaction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr role="row" class="">
-                                            @if( $user->role === 'master' )
-                                                <td class="text-center">{{$transaction['fld_043']}}</td>
-                                            @endif
-                                            @if( $user->terminals->count())
-                                                <td class="text-center">{{ $transaction['fld_041'] ?? __('n/a') }}</td>
-                                            @endif
-                                            <td class="text-center">{{$transaction['fld_011']}}</td>
-                                            <td class="text-center">{{$transaction['fld_037']}}</td>
+                                            <?php if( $user->role === 'master' ): ?>
+                                                <td class="text-center"><?php echo e($transaction['fld_043']); ?></td>
+                                            <?php endif; ?>
+                                            <?php if( $user->terminals->count()): ?>
+                                                <td class="text-center"><?php echo e($transaction['fld_041'] ?? __('n/a')); ?></td>
+                                            <?php endif; ?>
+                                            <td class="text-center"><?php echo e($transaction['fld_011']); ?></td>
+                                            <td class="text-center"><?php echo e($transaction['fld_037']); ?></td>
                                             <td class="text-center">
-                                                {{$transaction['fld_057']}}
+                                                <?php echo e($transaction['fld_057']); ?>
+
                                             </td>
                                             <td class="text-center">
-                                                @if($transaction['fld_003'] === '404000')
-                                                    {{ $transaction['user']['acc_number'] }}
-                                                @else
-                                                    {{$transaction['fld_002']}}
-                                                @endif
+                                                <?php if($transaction['fld_003'] === '404000'): ?>
+                                                    <?php echo e($transaction['user']['acc_number']); ?>
+
+                                                <?php else: ?>
+                                                    <?php echo e($transaction['fld_002']); ?>
+
+                                                <?php endif; ?>
                                             </td>
-                                            <td class="text-center">{{$transaction['fld_003']}}</td>
-                                            <td class="text-right">{{$transaction['fld_004']}}</td>
-                                            <td class="text-center">{{$transaction['fld_012']}}</td>
-                                            @if ($transaction['fld_039'] === '000')
+                                            <td class="text-center"><?php echo e($transaction['fld_003']); ?></td>
+                                            <td class="text-right"><?php echo e($transaction['fld_004']); ?></td>
+                                            <td class="text-center"><?php echo e($transaction['fld_012']); ?></td>
+                                            <?php if($transaction['fld_039'] === '000'): ?>
                                                 <td class="text-center"><label for=""
                                                                                class="label label-success">success</label>
                                                 </td>
-                                            @elseif ($transaction['fld_039'] === '101')
+                                            <?php elseif($transaction['fld_039'] === '101'): ?>
                                                 <td class="text-center"><label for=""
                                                                                class="label label-warning">pending</label>
                                                 </td>
-                                            @else
+                                            <?php else: ?>
                                                 <td class="text-center"><label for=""
                                                                                class="label label-danger">failed</label>
                                                 </td>
-                                            @endif
+                                            <?php endif; ?>
                                         </tr>
-                                    @endforeach
-                                @endif
-                            @endif
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
+                            <?php endif; ?>
                             </tbody>
                             <tfoot>
                             <tr role="row">
-                                @if( $user->role === 'master' )
+                                <?php if( $user->role === 'master' ): ?>
                                     <th title="Merchant" class="text-center">Merchant</th>
-                                @endif
-                                @if( $user->terminals->count())
+                                <?php endif; ?>
+                                <?php if( $user->terminals->count()): ?>
                                     <th title="Terminals" class="text-center">Terminal Id</th>
-                                @endif
+                                <?php endif; ?>
                                 <th title="System Trace Audit Number" class="text-center">Stan</th>
                                 <th title="Reference" class="text-center">Transaction Id</th>
                                 <th title="Wallet Name" class="text-center">R Switch</th>
@@ -135,7 +133,8 @@
                             </tr>
                             </tfoot>
                         </table>
-                        {{$transactions->links()}}
+                        <?php echo e($transactions->links()); ?>
+
                     </div>
                     <!-- </div> -->
                 </div>
@@ -143,4 +142,5 @@
         </div>
         <!-- /.container-fluid -->
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

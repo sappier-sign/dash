@@ -27,7 +27,19 @@ class TransactionsController extends Controller
 
     public function reports()
     {
-        return view('pages.reports', ['user' => Auth::user()]);
+        $user = Auth::user();
+
+        if ($user->role <> 'master') {
+            $r_switches         = Transaction::distinct('fld_057')->where('fld_042', $user->merchant_id)->orderBy('fld_057', 'asc')->get(['fld_057']);
+            $processing_codes   = Transaction::distinct('fld_003')->where('fld_042', $user->merchant_id)->orderBy('fld_003', 'asc')->get(['fld_003']);
+            $terminals          = Transaction::distinct('fld_041')->where('fld_042', $user->merchant_id)->orderBy('fld_041', 'asc')->get(['fld_041']);
+        } else {
+            $r_switches         = Transaction::distinct('fld_057')->orderBy('fld_057', 'asc')->get(['fld_057']);
+            $processing_codes   = Transaction::distinct('fld_003')->orderBy('fld_003', 'asc')->get(['fld_003']);
+            $terminals          = Transaction::distinct('fld_041')->orderBy('fld_041', 'asc')->get(['fld_041']);
+        }
+        
+        return view('pages.reports', compact('user', 'r_switches', 'processing_codes', 'terminals', 'statuses'));
 	}
 
     public function reportsView($date_range)
@@ -223,6 +235,8 @@ class TransactionsController extends Controller
 
     public function getReport(Request $request)
     {
+        return $request->all();
+        return Transaction::compositeSearch($request);
         $transactionController = new TransactionsController();
         return $transactionController->reportsView($request->date);
 	}
@@ -252,10 +266,26 @@ class TransactionsController extends Controller
 
     public function filterTransactionsByValue($parameter, $value)
     {
-        if (Auth::user()->role <> 'master') {
-            $transactions = Transaction::where('fld_042', Auth::user()->merchant_id)->where($parameter, 'LIKE', "%$value%")->latest('fld_012')->paginate(20);
+        if ($parameter === 'fld_039'){
+            if ($value === 'success') {
+                $value = '000';
+            } elseif ($value === 'failed') {
+                $value = '100';
+            } elseif ($value === 'pending') {
+                $value = '101';
+            }
+
+            if (Auth::user()->role <> 'master') {
+                $transactions = Transaction::where('fld_042', Auth::user()->merchant_id)->where($parameter, $value)->latest('fld_012')->paginate(20);
+            } else {
+                $transactions = Transaction::where($parameter, $value)->latest('fld_012')->paginate(20);
+            }
         } else {
-            $transactions = Transaction::where($parameter, 'LIKE', "%$value%")->latest('fld_012')->paginate(20);
+            if (Auth::user()->role <> 'master') {
+                $transactions = Transaction::where('fld_042', Auth::user()->merchant_id)->where($parameter, 'LIKE', "%$value%")->latest('fld_012')->paginate(20);
+            } else {
+                $transactions = Transaction::where($parameter, 'LIKE', "%$value%")->latest('fld_012')->paginate(20);
+            }
         }
 
         return view('pages.transactions', ['user' => Auth::user(), 'transactions' => $transactions]);

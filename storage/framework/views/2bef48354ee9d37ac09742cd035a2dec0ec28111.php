@@ -1,5 +1,4 @@
-@extends('layouts.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row bg-title">
@@ -11,7 +10,8 @@
                         <h3>Reports</h3>
                         <form method="post" class="row">
 
-                            {{csrf_field()}}
+                            <?php echo e(csrf_field()); ?>
+
 
                             <div class='col-md-2'>
                                 <div class="form-group">
@@ -26,9 +26,9 @@
                                     <label for="report-r-switch">Select R Switch:</label>
                                     <select name="r_switch" id="report-r-switch" class="form-control">
                                         <option value="all" selected>all</option>
-                                        @foreach($r_switches as $switch)
-                                            <option value="{{ $switch->fld_057 }}">{{ $switch->fld_057 }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $r_switches; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $switch): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($switch->fld_057); ?>"><?php echo e($switch->fld_057); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -38,9 +38,9 @@
                                     <label for="processing_code">Select Processing Code:</label>
                                     <select name="processing_code" id="processing_code" class="form-control">
                                         <option value="all" selected>all</option>
-                                        @foreach($processing_codes as $code)
-                                            <option value="{{ $code->fld_003 }}">{{ $code->fld_003 }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $processing_codes; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $code): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($code->fld_003); ?>"><?php echo e($code->fld_003); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -61,9 +61,9 @@
                                     <label for="report-terminal-id">Select Terminal ID:</label>
                                     <select name="terminal_id" id="report-terminal-id" class="form-control">
                                         <option value="all" selected>all</option>
-                                        @foreach($terminals as $terminal)
-                                            <option value="{{ $terminal->fld_041 }}">{{ $terminal->fld_041 }}</option>
-                                        @endforeach
+                                        <?php $__currentLoopData = $terminals; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $terminal): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <option value="<?php echo e($terminal->fld_041); ?>"><?php echo e($terminal->fld_041); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     </select>
                                 </div>
                             </div>
@@ -83,8 +83,9 @@
                 <div class="col-sm-12">
                     <div class="white-box">
                         <h3>Settlement</h3>
-                        <form method="POST" action="{{url('reports/settlement')}}" class="row">
-                            {{csrf_field()}}
+                        <form method="POST" action="<?php echo e(url('reports/settlement')); ?>" class="row">
+                            <?php echo e(csrf_field()); ?>
+
                             <div class='col-md-6'>
                                 <div class="form-group">
                                     <label for="report-settlement-date">Select Date Range:</label>
@@ -105,4 +106,5 @@
         </div>
         <!-- /.container-fluid -->
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
