@@ -113,10 +113,17 @@
                             <tr role="row">
                                 @if( $user->role === 'master' )
                                     <th title="Merchant" class="text-center">Merchant</th>
+
                                 @endif
                                 @if( $user->terminals->count())
                                     <th title="Terminals" class="text-center">Terminal Id</th>
                                 @endif
+
+                                @endif
+                                @if( $user->terminals->count())
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
+                                @endif
+
                                 <th title="System Trace Audit Number" class="text-center">Stan</th>
                                 <th title="Reference" class="text-center">Transaction Id</th>
                                 <th title="Wallet Name" class="text-center">R Switch</th>
