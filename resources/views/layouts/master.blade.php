@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 @include('components.head')
+@stack('styles')
 <body>
 <!-- Preloader -->
 <div class="preloader">

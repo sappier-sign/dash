@@ -57,6 +57,8 @@ class TransactionsController extends Controller
             array('name'=>'MAS','image'=>'img/paymentlogos/mastercard.png','fname' => 'Mastercard')
         ];
 
+        $theSwitches = $switches;
+
         $totals = [];
         foreach($switches as $switch) {
             $totals[$switch['name']] = [];
@@ -124,11 +126,99 @@ class TransactionsController extends Controller
 
         //calculate the total net
 
+        //only payments
+        $payments = []; $transfers = [];
+        foreach($theSwitches as $key => $switch) {
+            Log::info("Switch name ".$switch['name']." and count is ".$key);
+            $payments[$key] = [];
+            $transfers[$key] = [];
+
+            //payments
+            $payments[$key]['name'] = $switch['fname'];
+            $payments[$key]['image'] = $switch['image'];
+            $payments[$key]['rswitch'] = $switch['name'];
+            $payments[$key]['volume'] = 0;
+            $payments[$key]['amount'] = 0;
+            $payments[$key]['net_amount'] = 0;
+            $payments[$key]['charges'] = 0;
+            $payments[$key]['type'] = 'payment';
+
+            //transfers
+            $transfers[$key]['name'] = $switch['fname'];
+            $transfers[$key]['image'] = $switch['image'];
+            $transfers[$key]['rswitch'] = $switch['name'];
+            $transfers[$key]['volume'] = 0;
+            $transfers[$key]['amount'] = 0;
+            $transfers[$key]['net_amount'] = 0;
+            $transfers[$key]['charges'] = 0;
+            $transfers[$key]['type'] = 'transfer';
+        }
+        Log::info("\n\nRight Before Populating Them\n\n");
+        Log::info(" Payments"); Log::debug($payments);
+        Log::info(" Transfers"); Log::debug($transfers);
+        $totalPayment = [];
+        $totalPayment['net'] = 0;
+        $totalPayment['charge'] = 0;
+        $totalPayment['amount'] = 0;
+        $totalPayment['volume'] = 0;
+
+        $totalTransfer = [];
+        $totalTransfer['net'] = 0;
+        $totalTransfer['charge'] = 0;
+        $totalTransfer['amount'] = 0;
+        $totalTransfer['volume'] = 0;
+
+        foreach($settlement as $transaction) {
+            Log::info('The transaction: ');
+            Log::debug($transaction);
+            if(strtolower($transaction->TRANSTYPE)=='payment') {
+                foreach($payments as $key=>$payment) {
+                    //find the rswitch
+                    if($transaction->RSWITCH==$payment['rswitch']) {
+                        Log::info('PAYMENT: '.$transaction->RSWITCH.' = '.$payment['rswitch']);
+                        $payments[$key]['volume'] += $transaction->TOTVOL;
+                        $payments[$key]['amount'] += $transaction->TOTVAL;
+                        $payments[$key]['net_amount'] += $transaction->NET;
+                        $payments[$key]['charges'] += $transaction->CHARGES;
+
+                        $totalPayment['net'] += $transaction->NET;
+                        $totalPayment['charge'] += $transaction->CHARGES;
+                        $totalPayment['amount'] += $transaction->TOTVAL;
+                        $totalPayment['volume'] += $transaction->TOTVOL;
+                    }
+                }
+            }elseif(strtolower($transaction->TRANSTYPE)=='transfer') {
+                foreach($transfers as $key => $transfer) {
+                    //find the rswitch
+                    if($transaction->RSWITCH==$transfer['rswitch']) {
+                        Log::info('TRANSFER: '.$transaction->RSWITCH.' = '.$transfer['rswitch']);
+                        $transfers[$key]['volume'] += $transaction->TOTVOL;
+                        $transfers[$key]['amount'] += $transaction->TOTVAL;
+                        $transfers[$key]['net_amount'] += $transaction->NET;
+                        $transfers[$key]['charges'] += $transaction->CHARGES;
+
+                        $totalTransfer['net'] += $transaction->NET;
+                        $totalTransfer['charge'] += $transaction->CHARGES;
+                        $totalTransfer['amount'] += $transaction->TOTVAL;
+                        $totalTransfer['volume'] += $transaction->TOTVOL;
+                    }
+                }
+            }
+        }
+        Log::info("\n\nRight After Populating Them\n\n");
+        Log::info(" Payments"); Log::debug($payments);
+        Log::info(" Transfers"); Log::debug($transfers);
+
+
         return view('pages.settlement_view')->withUser(Auth::user())
             ->withSettlements($settlement)->withSwitches($totals)
             ->withDate($date)->withDetails($details)
             ->with('totalCharge',$totalCharge)
-            ->with('totalNet',$totalNet);
+            ->with('totalNet',$totalNet)
+            ->with('payments', $payments)
+            ->with('transfers', $transfers)
+            ->with('totalPayment',$totalPayment)
+            ->with('totalTransfer',$totalTransfer);
     }
 
     public function getReport(Request $request)

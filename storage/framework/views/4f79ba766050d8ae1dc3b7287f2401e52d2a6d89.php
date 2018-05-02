@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <?php echo $__env->make('components.head', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
+<?php echo $__env->yieldPushContent('styles'); ?>
 <body>
 <!-- Preloader -->
 <div class="preloader">
