@@ -24,7 +24,7 @@
                     
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="white-box" style="text-align: center">
-                        <span style="caption-side: top; font-weight: bolder; font-size: 2rem; ">SETTLEMENTS REPORT SUMMARY  FOR {{ $date->toFormattedDateString() }}</span>
+                        <span style="caption-side: top; font-weight: bolder; font-size: 2rem; text-transform: uppercase; ">SETTLEMENT REPORT SUMMARY  FOR {{ $date->toFormattedDateString() }}</span>
                         <div class="bluebox" style="margin-top:2rem;">
                             <div class="col-lg-3 col-md-3">
                                 Volume
