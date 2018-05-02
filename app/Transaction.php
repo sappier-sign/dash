@@ -352,6 +352,58 @@ class Transaction extends Model
             'rfu_005'
         ];
         $contents = '"subscriber_number","processing_code","amount","stan","transaction_date","transaction_id","response_code","terminal_id","merchant_id","merchant_name","r-switch","account_number","desc","account_issuer","rfu_001","rfu_002","rfu_003","rfu_004","rfu_005"'."\n";
+        if (Auth::user()->role === 'master') {
+            $transactions = self
+                ::whereBetween('fld_012', [Carbon::parse($start)->startOfDay(), Carbon::parse($end)->endOfDay()])
+                ->get([
+                    "fld_002",
+                    "fld_003",
+                    "fld_004",
+                    "fld_011",
+                    "fld_012",
+                    "fld_037",
+                    "fld_039",
+                    "fld_041",
+                    "fld_042",
+                    "fld_043",
+                    "fld_057",
+                    "fld_103",
+                    "fld_116",
+                    "fld_117",
+                    "rfu_001",
+                    "rfu_002",
+                    "rfu_003",
+                    "rfu_004",
+                    "rfu_005"
+                ]);
+        } else {
+            $transactions = self
+                ::whereBetween('fld_012', [Carbon::parse($start)->startOfDay(), Carbon::parse($end)->endOfDay()])
+                ->where('fld_042', Auth::user()->merchant_id)
+                ->get([
+                    "fld_002",
+                    "fld_003",
+                    "fld_004",
+                    "fld_011",
+                    "fld_012",
+                    "fld_037",
+                    "fld_039",
+                    "fld_041",
+                    "fld_042",
+                    "fld_043",
+                    "fld_057",
+                    "fld_103",
+                    "fld_116",
+                    "fld_117",
+                    "rfu_001",
+                    "rfu_002",
+                    "rfu_003",
+                    "rfu_004",
+                    "rfu_005"
+                ]);
+        }
+
+        $contents = '"subscriber_number","processing_code","amount","stan","transaction_date","transaction_id","response_code","terminal_id","merchant_id","merchant_name","r-switch","account_number","desc","account_issuer","rfu_001","rfu_002","rfu_003","rfu_004","rfu_005"'."\n\r";
 
         $file_name = str_replace('-', '', Auth::user()->merchant_id).str_replace('-', '', date('YmdHis')).'.csv';
 
@@ -418,6 +470,9 @@ class Transaction extends Model
 
 //        return [$transactions->count(), $transactions->toSql(), $transactions->getBindings(), $request->all()];
 
+        Storage::disk('public')->put($file_name, $contents);
+
+        return response()->download(storage_path("app/public/{$file_name}"));
     }
 
 }
