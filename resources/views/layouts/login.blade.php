@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>TheTeller API</title>
+    {{--<script src="https://s.codepen.io/assets/libs/modernizr.js" type="text/javascript"></script>--}}
 
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
@@ -17,8 +18,7 @@
 
 <body style="background-color: #0277bd">
 <div class="container">
-    <div id="login" class="signin-card col-lg-offset-4 col-lg-4 col-sm-12"
-         style="background-color: #eceff1; margin-top: 50px">
+    <div id="login" class="signin-card col-lg-offset-4 col-lg-4 col-sm-12" style="background-color: #eceff1; margin-top: 50px">
         <div class="logo-image text-center">
             <img src="{{asset('img/theteller-logo-small.png')}}" alt="Logo" title="Logo" width="138">
         </div>
@@ -30,22 +30,17 @@
                 @endforeach
             </div>
         @endif
-        <form action="{{ url('login') }}" method="post" class="" role="form">
-            {{ csrf_field() }}
+        <form action="{{ url('login')}}" method="post" class="" role="form">
+            {{csrf_field()}}
             <div id="" class="form-group">
-                <input id="username" class="form-control text-center" name="email" placeholder="email" type="text"
-                       size="18" alt="email" value="{{old('email')}}"
-                       style="background-color: transparent; box-shadow: none" required/>
+                <input id="username" class="form-control text-center" name="email" placeholder="email" type="text" size="18" alt="email" value="{{old('email')}}" style="background-color: transparent; box-shadow: none" required/>
             </div>
             <div id="form-login-password" class="form-group" style="margin-top: -10px">
-                <input id="passwd" class="form-control text-center"
-                       style="background-color: transparent; box-shadow: none" placeholder="password" name="password"
-                       type="password" size="18" alt="password"
+                <input id="passwd" class="form-control text-center" style="background-color: transparent; box-shadow: none" placeholder="password" name="password" type="password" size="18" alt="password"
                        required>
             </div>
             <div style="margin-top: -10px">
-                <button class="btn btn-block btn-info ripple-effect" type="submit" name="Submit" alt="sign in">
-                    Sign in
+                <button class="btn btn-block btn-info ripple-effect" type="submit" name="Submit" alt="sign in">Sign in
                 </button>
             </div>
         </form>

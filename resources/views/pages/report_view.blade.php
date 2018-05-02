@@ -15,10 +15,16 @@
             <div class="row">
                 <div class="center p-20 col-md-2 pull-right">
                     <input type="hidden" name="date_range" value="{{ session('date_range') ?? '' }}">
+                                        {{--<span class="hide-menu ">--}}
+                                            {{--<a href=""--}}
+                                               {{--class="btn btn-info btn-block btn-rounded waves-effect waves-light">Download</a>--}}
                     <span class="hide-menu ">
                                             <a href="{{ url($download_link) }}" target="_blank"
                                                class="btn btn-info btn-block btn-rounded waves-effect waves-light">download csv</a>
                                         </span>
+                        <a href="{{ url('reports/download/'.$start.'/'.$end) }}" target="_blank"
+                           class="btn btn-info btn-block btn-rounded waves-effect waves-light">download csv</a>
+                    </span>
                 </div>
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="white-box">
