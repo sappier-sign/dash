@@ -48,7 +48,7 @@
                                 <div class="table-responsive">
                                     <table class="table table-condensed table-hover table-striped">
                                         <thead>
-                                        <caption style="caption-side: top; font-weight: bold; font-size: 2rem; padding-top:2rem;" align="bottom">Purchase</caption>
+                                        <caption style="caption-side: top; font-weight: bold; font-size: 2rem; padding-top:2rem;" align="bottom">Payment</caption>
                                         <tr style="text-align: center; text-transform: uppercase">
                                             <th width="100"> R-SWITCH </th>
                                             <th width="100">Volume</th>
