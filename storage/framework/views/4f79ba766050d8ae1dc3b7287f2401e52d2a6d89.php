@@ -56,7 +56,7 @@
 <!--Wave Effects -->
 <script src="<?php echo e(asset('js/waves.js')); ?>"></script>
 <!-- Custom Theme JavaScript -->
-<script src="<?php echo e(asset('js/myadmin.js')); ?>"></script>
+<script src="<?php echo e(asset('js/myadmin1.js')); ?>"></script>
 <script src="<?php echo e(asset('js/dashboard1.js')); ?>"></script>
 <?php echo $__env->yieldPushContent('scripts'); ?>
 </body>
