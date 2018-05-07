@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\User;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutDocsController extends Controller
 {
@@ -19,7 +21,12 @@ class CheckoutDocsController extends Controller
      */
     public function index()
     {
-        return view('pages.documentation_checkout', ['user' => Auth::user()]);
+        $user = DB::table('api_users')->where('user_name',Auth::user()->apiuser)->first();
+        $authorization =  base64_encode($user->user_name.":".$user->api_key);
+
+        return view('pages.documentation_checkout', ['user' => Auth::user()])
+            ->with('merchant_id',Auth::user()->merchant_id)
+            ->with('authorization',$authorization);
     }
 
     /**
