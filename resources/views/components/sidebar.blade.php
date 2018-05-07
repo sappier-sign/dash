@@ -35,8 +35,17 @@
             <li>
                 <a href="{{url('terminals')}}" class="waves-effect"><i class="fa fa-tablet"></i> Terminals</a>
             </li>
-            <li>
-                <a href="{{url('documentations')}}" class="waves-effect"><i class="fa fa-file-text-o"></i> Documentation</a>
+            <li id="docs-tab">
+                <a href="#docs" class="waves-effect" data-toggle="collapse" aria-expanded="false" id="main-docs"><i class="fa fa-file-text-o"></i> Documentations</a>
+                <ul class="collapse nav" id="docs" style="margin-left: 1.3rem">
+                    <li>
+                        <a href="{{url('documentations/api')}}" class="waves-effect"><i class="fa fa-cog"></i> API Docs</a>
+                    </li>
+                    <li>
+                        <a href="{{ url('documentations/checkout') }}" class="waves-effect"><i class="fa fa-shopping-cart"></i> Checkout Docs</a>
+                    </li>
+                </ul>
+                {{--<a href="{{url('documentations')}}" class="waves-effect"><i class="fa fa-file-text-o"></i> Documentation</a>--}}
             </li>
         </ul>
     </div>
