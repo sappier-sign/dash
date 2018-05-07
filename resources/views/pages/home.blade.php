@@ -119,7 +119,6 @@
                                     <th title="Terminals" class="text-center">Terminal Id</th>
                                 @endif
 
-                                @endif
                                 @if( $user->terminals->count())
                                     <th title="Terminals" class="text-center">Terminal Id</th>
                                 @endif

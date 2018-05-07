@@ -494,4 +494,12 @@
         <!-- /.container-fluid -->
     </div>
 <?php $__env->stopSection(); ?>
+<?php $__env->startPush('scripts'); ?>
+<script>
+    $(document).ready(function() {
+        console.log('about to make documentations active');
+        $('#main-docs').addClass('active');
+    });
+</script>
+<?php $__env->stopPush(); ?>
 <?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

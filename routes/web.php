@@ -18,7 +18,7 @@ Route::prefix('reports')->group(function (){
     Route::get('download/{start}/{end}/{status}/{r_switch}/{processing_code}/{terminal_id}', 'ReportController@downloadFilterReport');
 
     Route::post('settlement','TransactionsController@getSettlement');
-    Route::get('download/{start}/{end}', 'TransactionsController@downloadReport');
+    Route::get('download/settlement/{start}/{end}', 'TransactionsController@downloadReport');
 });
 
 Route::prefix('transactions')->group(function (){
@@ -43,7 +43,15 @@ Route::get('', 'LoginController@redirectToHome');
 Route::get('credentials', 'LoginController@getApiKey');
 
 Route::resource('terminals', 'TerminalController');
-Route::resource('documentations', 'DocsController');
+
+Route::group(['prefix'=>'documentations'],function(){
+    Route::get('/',function(){
+        return view('pages.docs.main_documentation');
+    });
+    Route::resource('api','DocsController');
+    Route::resource('checkout','CheckoutDocsController');
+});
+//Route::resource('documentations', 'DocsController');
 
 Route::get('home', 'HomeController@index');
 Route::get('test', 'LoginController@test');

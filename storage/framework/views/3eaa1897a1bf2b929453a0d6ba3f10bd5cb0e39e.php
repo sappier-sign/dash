@@ -1,7 +1,5 @@
-@extends('layouts.master')
-@section('content')
 
-
+<?php $__env->startSection('content'); ?>
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row bg-title">
@@ -13,7 +11,7 @@
                     <div class="col-sm-12 col-md-8 col-md-offset-2 white-box">
                         <div class="row">
                             <div class="container">
-                                <h3>TheTeller API V1.1 Documentation</h3>
+                                <h3>Checkout V1.0 Documentation</h3>
                             </div>
                         </div>
 
@@ -301,31 +299,31 @@
                         </table>
                         <p>From above, a JSON payload for purchase with a mobile wallet will look like this:</p>
                         <p>&nbsp;&nbsp;<code>{ <br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount" : "000000000010",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code" : "000000",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
-                            "00000000001",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc" : "testing new api",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"merchant_id" : "TTM-0000000X",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"subscriber_number" :
-                            "027XXXXXXX",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"r-switch" : "TGO"<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount" : "000000000010",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code" : "000000",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
+                                "00000000001",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc" : "testing new api",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"merchant_id" : "TTM-0000000X",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"subscriber_number" :
+                                "027XXXXXXX",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"r-switch" : "TGO"<br/>
                                 &nbsp;&nbsp;}</code></p>
                         <p>And a JSON payload for purchase with a Card will look like this:</p>
                         <p>&nbsp;&nbsp;<code>{ <br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount" : "000000000010",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code" : "000000",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
-                            "000000000001",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc" : "testing new api",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"merchant_id" : "TTM-0000000X",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"r-switch" : "MAS",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cvv" : "XXX",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pan" : "453108XXXXXX7975",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"exp_month" : "09",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"exp_year" : "18",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"3d_url_response" :
-                            "XXXXXXXXXXXXXXXXXXXX"<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount" : "000000000010",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code" : "000000",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
+                                "000000000001",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc" : "testing new api",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"merchant_id" : "TTM-0000000X",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"r-switch" : "MAS",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cvv" : "XXX",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pan" : "453108XXXXXX7975",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"exp_month" : "09",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"exp_year" : "18",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"3d_url_response" :
+                                "XXXXXXXXXXXXXXXXXXXX"<br/>
                                 &nbsp;&nbsp;}</code></p>
                         <h3>Transfer</h3>
                         <p>For transfers, the fields to add to the required fields mentioned earlier in Table
@@ -360,26 +358,26 @@
                         </table>
                         <p>From above, a funds transfer from a card to a mobile wallet will look like this:</p>
                         <p>&nbsp;&nbsp;<code>{ <br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount" : "000000000010",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code" : "400110",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
-                            "000000000001",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc" : "testing new api",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"merchant_id" : "TTM-XXXXXXXX",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"r-switch" : "MAS",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cvv" : "XXX",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pan" : "453108XXXXXX7975",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"exp_month" : "09",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"exp_year" : "18",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"3d_url_response" :
-                            ”XXXXXXXXXXXXXXXXXXXXXX”,<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_issuer" : "TGO",<br/>
-                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_number" : "027XXXXXXX"<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"amount" : "000000000010",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code" : "400110",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id" :
+                                "000000000001",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"desc" : "testing new api",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"merchant_id" : "TTM-XXXXXXXX",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"r-switch" : "MAS",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"cvv" : "XXX",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"pan" : "453108XXXXXX7975",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"exp_month" : "09",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"exp_year" : "18",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"3d_url_response" :
+                                ”XXXXXXXXXXXXXXXXXXXXXX”,<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_issuer" : "TGO",<br/>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"account_number" : "027XXXXXXX"<br/>
                                 &nbsp;&nbsp;}</code>
                         </p>
                         <h3>Transfer from Merchant's Float</h3>
                         <p>When a merchant want's to credit an account or wallet from their existing float or payswitch balance.
-                        The payload required will look like this:</p>
+                            The payload required will look like this:</p>
                         <p> <code>{ <br/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"processing_code":"404000",<br/>
                                 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"transaction_id":"141525258595",<br/>
@@ -475,14 +473,14 @@
                             Note, the request will be authenticated and as such, the headers must contain 'Merchant-Id' field, which should hold the merchant ID assigned during registration for the API.
                             <br>
                             <code>https://api.theteller.net/v1.1/users/transactions/{transaction_id}/status</code>
-                            <p>Calls to the above endpoint will return a JSON response like what's shown below:</p>
-                            <code>
-                                {
-                                    "status" : "approved",
-                                    "code" : "000",
-                                    "reason" : "Transaction successful"
-                                }
-                            </code>
+                        <p>Calls to the above endpoint will return a JSON response like what's shown below:</p>
+                        <code>
+                            {
+                            "status" : "approved",
+                            "code" : "000",
+                            "reason" : "Transaction successful"
+                            }
+                        </code>
                         </p>
                         <p class="text-right">
                             <strong>Happy Coding...</strong>
@@ -494,12 +492,13 @@
         </div>
         <!-- /.container-fluid -->
     </div>
-@endsection
-@push('scripts')
-<script>
-    $(document).ready(function() {
-        console.log('about to make documentations active');
-        $('#main-docs').addClass('active');
-    });
-</script>
-@endpush
+<?php $__env->stopSection(); ?>
+<?php $__env->startPush('scripts'); ?>
+    <script>
+        $(document).ready(function() {
+            console.log('about to make documentations active');
+            $('#main-docs').addClass('active');
+        });
+    </script>
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

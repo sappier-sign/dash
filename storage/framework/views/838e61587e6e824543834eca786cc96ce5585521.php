@@ -96,27 +96,6 @@
                                     <h4 class="counter"><?php echo e($transactions['mastercard_count']); ?></h4>
                                 </div>
                             </div>
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
                         </div>
                     </div>
                 </div>
@@ -124,30 +103,33 @@
             </div>
             <!-- row -->
             <div class="row">
-                
-                
-                
-                
-                
-                
                 <div class="col-sm-12">
                     <div class="white-box col-sm-12">
-                        <h3>Most Resent Transactions</h3>
+                        <h3>Most Recent Transactions</h3>
                         <table id="example1" class="table table-bordered table-striped dataTable" role="grid"
                                aria-describedby="example1_info">
                             <thead>
                             <tr role="row">
                                 <?php if( $user->role === 'master' ): ?>
-                                    <th title="Merchant" class="text-center">fld_043</th>
+                                    <th title="Merchant" class="text-center">Merchant</th>
+
                                 <?php endif; ?>
-                                <th title="System Trace Audit Number" class="text-center">fld_011</th>
-                                <th title="Reference" class="text-center">fld_037</th>
-                                <th title="Wallet Name" class="text-center">fld_057</th>
-                                <th title="Wallet Number" class="text-center">fld_002</th>
-                                <th title="Transaction Type" class="text-center">fld_003</th>
-                                <th title="Transaction Amount" class="text-center">fld_004</th>
-                                <th title="Transaction Date" class="text-center">fld_012</th>
-                                <th title="Transaction Status" class="text-center">fld_039</th>
+                                <?php if( $user->terminals->count()): ?>
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
+                                <?php endif; ?>
+
+                                <?php if( $user->terminals->count()): ?>
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
+                                <?php endif; ?>
+
+                                <th title="System Trace Audit Number" class="text-center">Stan</th>
+                                <th title="Reference" class="text-center">Transaction Id</th>
+                                <th title="Wallet Name" class="text-center">R Switch</th>
+                                <th title="Wallet Number" class="text-center">Wallet Number</th>
+                                <th title="Transaction Type" class="text-center">Process Code</th>
+                                <th title="Transaction Amount" class="text-center">Amount</th>
+                                <th title="Transaction Date" class="text-center">Date</th>
+                                <th title="Transaction Status" class="text-center">Status</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -161,6 +143,9 @@
                                         <tr role="row" class="">
                                             <?php if( $user->role === 'master' ): ?>
                                                 <td class="text-center"><?php echo e($transaction['Merchant']); ?></td>
+                                            <?php endif; ?>
+                                            <?php if( $user->terminals->count() ): ?>
+                                                <td class="text-center"><?php echo e($transaction['Terminal'] ?? __('n/a')); ?></td>
                                             <?php endif; ?>
                                             <td class="text-center"><?php echo e($transaction['STAN']); ?></td>
                                             <td class="text-center"><?php echo e($transaction['TranId']); ?></td>
@@ -197,14 +182,20 @@
                             </tbody>
                             <tfoot>
                             <tr role="row">
-                                <th title="System Trace Audit Number" class="text-center">fld_011</th>
-                                <th title="Reference" class="text-center">fld_037</th>
-                                <th title="Wallet Name" class="text-center">fld_057</th>
-                                <th title="Wallet Number" class="text-center">fld_002</th>
-                                <th title="Transaction Type" class="text-center">fld_003</th>
-                                <th title="Transaction Amount" class="text-center">fld_004</th>
-                                <th title="Transaction Date" class="text-center">fld_012</th>
-                                <th title="Transaction Status" class="text-center">fld_039</th>
+                                <?php if( $user->role === 'master' ): ?>
+                                    <th title="Merchant" class="text-center">Merchant</th>
+                                <?php endif; ?>
+                                <?php if( $user->terminals->count()): ?>
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
+                                <?php endif; ?>
+                                <th title="System Trace Audit Number" class="text-center">Stan</th>
+                                <th title="Reference" class="text-center">Transaction Id</th>
+                                <th title="Wallet Name" class="text-center">R Switch</th>
+                                <th title="Wallet Number" class="text-center">Wallet Number</th>
+                                <th title="Transaction Type" class="text-center">Process Code</th>
+                                <th title="Transaction Amount" class="text-center">Amount</th>
+                                <th title="Transaction Date" class="text-center">Date</th>
+                                <th title="Transaction Status" class="text-center">Status</th>
                             </tr>
                             </tfoot>
                         </table>
@@ -216,229 +207,5 @@
         <!-- /.container-fluid -->
     </div>
     <!-- /.content -->
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
-    
-    
-    
 <?php $__env->stopSection(); ?>
 <?php echo $__env->make('layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>
