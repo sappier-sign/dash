@@ -15,15 +15,12 @@
             <div class="row">
                 <div class="center p-20 col-md-2 pull-right">
                     <input type="hidden" name="date_range" value="{{ session('date_range') ?? '' }}">
-                                        {{--<span class="hide-menu ">--}}
-                                            {{--<a href=""--}}
-                                               {{--class="btn btn-info btn-block btn-rounded waves-effect waves-light">Download</a>--}}
+                    {{--<span class="hide-menu ">--}}
+                    {{--<a href=""--}}
+                    {{--class="btn btn-info btn-block btn-rounded waves-effect waves-light">Download</a>--}}
                     <span class="hide-menu ">
-                                            <a href="{{ url($download_link) }}" target="_blank"
+                        <a href="{{ url($download_link) }}" target="_blank"
                                                class="btn btn-info btn-block btn-rounded waves-effect waves-light">download csv</a>
-                                        </span>
-                        <a href="{{ url('reports/download/'.$start.'/'.$end) }}" target="_blank"
-                           class="btn btn-info btn-block btn-rounded waves-effect waves-light">download csv</a>
                     </span>
                 </div>
                 <div class="col-md-12 col-lg-12 col-sm-12">
@@ -50,7 +47,8 @@
                                     </h4>
                                     <h5> {{$user['address']}}</h5>
                                     <h5>
-                                        <b>Date:</b> {{ \Carbon\Carbon::parse($start)->toFormattedDateString() }} - {{ \Carbon\Carbon::parse($end)->toFormattedDateString() }}</h5>
+                                        <b>Date:</b> {{ \Carbon\Carbon::parse($start)->toFormattedDateString() }}
+                                        - {{ \Carbon\Carbon::parse($end)->toFormattedDateString() }}</h5>
                                 </div>
                             </div>
                         </div>
@@ -171,9 +169,9 @@
                                 @if( $user->role === 'master' )
                                     <th title="Merchant" class="text-center">Merchant</th>
                                 @endif
-                                    @if( $user->terminals->count())
-                                        <th title="Terminals" class="text-center">Terminal Id</th>
-                                    @endif
+                                @if( $user->terminals->count())
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
+                                @endif
                                 <th title="System Trace Audit Number" class="text-center">Stan</th>
                                 <th title="Reference" class="text-center">Transaction Id</th>
                                 <th title="Wallet Name" class="text-center">R Switch</th>
@@ -182,13 +180,14 @@
                                 <th title="Transaction Amount" class="text-center">Amount</th>
                                 <th title="Transaction Date" class="text-center">Date</th>
                                 <th title="Transaction Status" class="text-center">Status</th>
+                                <th title="Transaction Reason" class="text-center">Reason</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if(isset($transactions))
                                 @if(count($transactions) === 0)
                                     <tr role="row">
-                                        <td colspan="8" class="text-center">No Transactions found!</td>
+                                        <td colspan="9" class="text-center">No Transactions found!</td>
                                     </tr>
                                 @else
                                     @foreach($transactions['transactions'] as $transaction)
@@ -196,9 +195,9 @@
                                             @if( $user->role === 'master' )
                                                 <td class="text-center">{{$transaction['fld_043']}}</td>
                                             @endif
-                                                @if( $user->terminals->count() )
-                                                    <td class="text-center">{{ $transaction['fld_041'] ?? __('n/a')}}</td>
-                                                @endif
+                                            @if( $user->terminals->count() )
+                                                <td class="text-center">{{ $transaction['fld_041'] ?? __('n/a')}}</td>
+                                            @endif
                                             <td class="text-center">{{$transaction['fld_011']}}</td>
                                             <td class="text-center">{{$transaction['fld_037']}}</td>
                                             <td class="text-center">{{$transaction['fld_057']}}</td>
@@ -225,6 +224,7 @@
                                                                                class="label label-danger">failed</label>
                                                 </td>
                                             @endif
+                                            <td>{{$transaction['rfu_003']}}</td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -235,9 +235,9 @@
                                 @if( $user->role === 'master' )
                                     <th title="Merchant" class="text-center">Merchant</th>
                                 @endif
-                                    @if( $user->terminals->count())
-                                        <th title="Terminals" class="text-center">Terminal Id</th>
-                                    @endif
+                                @if( $user->terminals->count())
+                                    <th title="Terminals" class="text-center">Terminal Id</th>
+                                @endif
                                 <th title="System Trace Audit Number" class="text-center">Stan</th>
                                 <th title="Reference" class="text-center">Transaction Id</th>
                                 <th title="Wallet Name" class="text-center">R Switch</th>
@@ -246,6 +246,7 @@
                                 <th title="Transaction Amount" class="text-center">Amount</th>
                                 <th title="Transaction Date" class="text-center">Date</th>
                                 <th title="Transaction Status" class="text-center">Status</th>
+                                <th title="Transaction Reason" class="text-center">Reason</th>
                             </tr>
                             </tfoot>
                         </table>

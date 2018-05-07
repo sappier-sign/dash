@@ -66,13 +66,14 @@
                                 <th title="Transaction Amount" class="text-center">Amount</th>
                                 <th title="Transaction Date" class="text-center">Date</th>
                                 <th title="Transaction Status" class="text-center">Status</th>
+                                <th title="Transaction Reason" class="text-center">Reason</th>
                             </tr>
                             </thead>
                             <tbody>
                             @if(isset($transactions))
                                 @if(count($transactions) === 0)
                                     <tr role="row">
-                                        <td colspan="8" class="text-center">No Transactions found!</td>
+                                        <td colspan="9" class="text-center">No Transactions found!</td>
                                     </tr>
                                 @else
                                     @foreach($transactions as $transaction)
@@ -111,6 +112,7 @@
                                                                                class="label label-danger">failed</label>
                                                 </td>
                                             @endif
+                                                <td>{{$transaction['rfu_003']}}</td>
                                         </tr>
                                     @endforeach
                                 @endif
@@ -132,6 +134,7 @@
                                 <th title="Transaction Amount" class="text-center">Amount</th>
                                 <th title="Transaction Date" class="text-center">Date</th>
                                 <th title="Transaction Status" class="text-center">Status</th>
+                                <th title="Transaction Reason" class="text-center">Reason</th>
                             </tr>
                             </tfoot>
                         </table>

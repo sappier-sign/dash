@@ -235,7 +235,6 @@ class TransactionsController extends Controller
 
     public function getReport(Request $request)
     {
-        return $request->all();
         return Transaction::compositeSearch($request);
         $transactionController = new TransactionsController();
         return $transactionController->reportsView($request->date);

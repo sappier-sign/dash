@@ -264,6 +264,7 @@ class Transaction extends Model
                 'Amount'        =>  $transaction->fld_004,
                 'TransDate'     =>  $transaction->fld_012,
                 'Status'        =>  $transaction->fld_039,
+                'Reason'        =>  $transaction->rfu_003,
                 'user_acc'      =>  $transaction->user->acc_number
             ]);
 
