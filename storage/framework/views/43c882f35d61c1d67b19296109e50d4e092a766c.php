@@ -1,3 +1,4 @@
+
 <?php $__env->startSection('content'); ?>
     <div id="page-wrapper">
         <div class="container-fluid">

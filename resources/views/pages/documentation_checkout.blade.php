@@ -11,7 +11,7 @@
                     <div class="col-sm-12 col-md-8 col-md-offset-2 white-box">
                         <div class="row">
                             <div class="container">
-                                <h2 style="margin-left: 22rem;">Checkout v1.0 Documentation</h2>
+                                <h2 style="margin-left: 22rem; font-weight: bold;">Checkout v1.0 Documentation</h2>
                             </div>
                         </div>
 
@@ -200,12 +200,12 @@
                             <span style="diplay: block; margin-left: 3rem">"merchant_id": "{{ $merchant_id }}",</span> <br>
                             <span style="diplay: block; margin-left: 3rem">"desc": "Sample checkout test",</span> <br>
                             <span style="diplay: block; margin-left: 3rem">"amount": "000000000010",</span> <br>
-                            <span style="diplay: block; margin-left: 3rem">"redirect_url": ""</span> <br>
+                            <span style="diplay: block; margin-left: 3rem">"redirect_url": "https://payswitch.com.gh"</span> <br>
                             }
                             </code>
                         <h5 style="font-weight: bold;">Request Header</h5>
                         <code>
-                            <b>Content-Type</b> : Application/Json <br>
+                            <b> Content-Type</b>  : Application/Json <br>
                             <b>Authorization</b> : Basic {{$authorization}}
                         </code>
                         <h5 style="font-weight: bold;">Sample Response</h5>
@@ -218,6 +218,27 @@
                             <span style="diplay: block; margin-left: 3rem">"checkout_url": "https://checkout.dev/checkout/dERrejJiNVlVMms4Mm13RTl4d3RDUT09OllUQXdZbVpsTlR"</span><br>
                             }
                         </code>
+
+                        <h3 style="margin-top: 1.5rem">Redirect User</h3>
+                        <p>
+                        The user should be redirected to the <code>checkout_url</code> received from initiating the checkout.
+                        <br>
+                        The url generated is unique for every transaction and will thus be checked against various parameters to ensure it is valid.
+                        The Merchant <code>name</code> and transaction <code>amount</code> will be displayed on the Checkout Page.
+                        </p>
+                        <h3 style="margin-top: 1.5rem">Payment Processed</h3>
+                        <p>
+                            Success or Failure, the User will be redirected to the <code>redirect_url</code> as supplied by the Merchant with parameters
+                            <br>
+                            <code>status</code> : <b>000</b> for success, and any other number for failure or pending
+                            <br>and <br>
+                            <code>tranx</code> : which is the <b>transaction_id</b>. The Merchant can check the status of this transaction from
+                            <code><span style="cursor: pointer">https://api.theteller.net/v1.1/users/transactions/{transaction_id}/status</span></code>
+                            <br>
+                        </p>
+                        <p class="text-right">
+                        <strong>Happy Coding...</strong>
+                        </p>
                         {{--</pre>--}}
                         {{--<h3>Sending Request</h3>--}}
                         {{--<p>--}}
