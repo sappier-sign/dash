@@ -94,10 +94,36 @@ class TransactionsController extends Controller
                 Log::info('Settlement Count is '.$settlement->count());
             }else {
                 Log::info('Single date stuffs');
-                $date = explode('-',$date);
+                /*$date = explode('-',$date);
                 $date = Carbon::createFromDate($date[0],$date[1],$date[2]);
                 $settlement = Settlement::whereDate('setldate',$date->toDateString())->where('merchid',Auth::user()->merchant_id)->get();
-                $date = [$date];
+                $date = [$date];*/
+                $t1 = explode('-',$date);
+
+                $t1 = Carbon::createFromDate($t1[0],$t1[1],$t1[2]);
+                $new_date = [$t1,$t1];
+
+                Log::info('Single JSON DATA');
+                $data = ['merchantID' => Auth::user()->merchant_id, 'fromDate' => $date, 'toDate' => $date];
+                Log::debug(json_encode($data));
+
+                $tempSet = $client->post("https://23.239.22.186/api/getrange.php",[
+                    'body' => json_encode($data)
+                ]);
+
+                Log::info('Single Response from Mike End');
+                Log::debug($tempSet->getBody());
+
+                $deData = [];
+                
+                foreach(json_decode($tempSet->getBody(),true) as $data) {
+                    array_push($deData, new Settlement($data));
+                }
+                //$deData = ;//original
+                Log::info('final deData');
+                Log::debug(collect($deData));
+                $settlement = collect($deData);
+                $date = [$t1];
             }
         }
 
