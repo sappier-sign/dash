@@ -8,6 +8,7 @@ use App\Settlement;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use GuzzleHttp\Client;
 use Log;
 
 class TransactionsController extends Controller
@@ -53,12 +54,51 @@ class TransactionsController extends Controller
 	public function settlementView($date)
     {
         $settlement = [];
+        $client = new Client([
+            'headers' => [ 'Content-Type' => 'application/json' ],
+            'verify' => false
+        ]);//Guzzle HTTP
+
         if($date) {
             Log::info('Date has been set');
-            $date = explode('-',$date);
-            $date = Carbon::createFromDate($date[0],$date[1],$date[2]);
+            Log::debug($date);
+            $new_date = explode('--',$date);
+            Log::debug($new_date);
+            if(count($new_date)>1) {
+                Log::info('It is a date range');
+                //$date = $new_date;
+                $t1 = explode('-',$new_date[0]);
+                $t2 = explode('-',$new_date[1]);
 
-            $settlement = Settlement::whereDate('setldate',$date->toDateString())->where('merchid',Auth::user()->merchant_id)->get();
+                $t1 = Carbon::createFromDate($t1[0],$t1[1],$t1[2]);
+                $t2 = Carbon::createFromDate($t2[0],$t2[1],$t2[2]);
+                $date = [$t1,$t2];
+
+                Log::info('JSON DATA');
+                $data = ['merchantID' => Auth::user()->merchant_id, 'fromDate' => $new_date[0], 'toDate' => $new_date[1]];
+                Log::debug(json_encode($data));
+
+                $tempSet = $client->post("https://23.239.22.186/api/getrange.php",[
+                    'body' => json_encode($data)
+                ]);
+
+                Log::info('Response from Mike End');
+
+                $deData = [];
+                
+                foreach(json_decode($tempSet->getBody(),true) as $data) {
+                    array_push($deData, new Settlement($data));
+                }
+                //$deData = ;//original
+                $settlement = collect($deData);
+                Log::info('Settlement Count is '.$settlement->count());
+            }else {
+                Log::info('Single date stuffs');
+                $date = explode('-',$date);
+                $date = Carbon::createFromDate($date[0],$date[1],$date[2]);
+                $settlement = Settlement::whereDate('setldate',$date->toDateString())->where('merchid',Auth::user()->merchant_id)->get();
+                $date = [$date];
+            }
         }
 
         $switches = [array('name'=>'MTN','image'=>'img/paymentlogos/mtn.png','fname' => 'MTN'),
@@ -90,6 +130,10 @@ class TransactionsController extends Controller
             foreach($settlement as $key=>$item) {
                 //Log::info('Settlement with Switch');
                 //Log::debug($switch['name'].' '.$item->RSWITCH);
+                Log::info('Please defend yourself now');
+                Log::debug($item);
+                Log::info('ITEM TyPE '.gettype($item));
+
                 if ($switch['name'] == $item->RSWITCH) {
                     $details[$key] = [];
                     $details[$key]['name'] = $switch['fname'];
@@ -104,8 +148,8 @@ class TransactionsController extends Controller
             }
         }
 
-        Log::info('Details are');
-        Log::debug($details);
+        //Log::info('Details are');
+        //Log::debug($details);
 
         $switches = ['MTN','VDF','ATL','TGO','VIS','MAS'];
 
@@ -126,8 +170,8 @@ class TransactionsController extends Controller
                 $totals[$item->RSWITCH]['net_amount'] +=(double) $item->NET;
             }
         }
-        Log::info('DATE Format is '.gettype($date));
-        Log::debug($date);
+        //Log::info('DATE Format is '.gettype($date));
+        //Log::debug($date);
 
         //calculate the total charge
         $totalCharge = 0; $totalNet = 0;
@@ -141,7 +185,7 @@ class TransactionsController extends Controller
         //only payments
         $payments = []; $transfers = [];
         foreach($theSwitches as $key => $switch) {
-            Log::info("Switch name ".$switch['name']." and count is ".$key);
+            //Log::info("Switch name ".$switch['name']." and count is ".$key);
             $payments[$key] = [];
             $transfers[$key] = [];
 
@@ -165,9 +209,9 @@ class TransactionsController extends Controller
             $transfers[$key]['charges'] = 0;
             $transfers[$key]['type'] = 'transfer';
         }
-        Log::info("\n\nRight Before Populating Them\n\n");
-        Log::info(" Payments"); Log::debug($payments);
-        Log::info(" Transfers"); Log::debug($transfers);
+        //Log::info("\n\nRight Before Populating Them\n\n");
+        //Log::info(" Payments"); Log::debug($payments);
+        //Log::info(" Transfers"); Log::debug($transfers);
         $totalPayment = [];
         $totalPayment['net'] = 0;
         $totalPayment['charge'] = 0;
@@ -217,9 +261,9 @@ class TransactionsController extends Controller
                 }
             }
         }
-        Log::info("\n\nRight After Populating Them\n\n");
-        Log::info(" Payments"); Log::debug($payments);
-        Log::info(" Transfers"); Log::debug($transfers);
+        //Log::info("\n\nRight After Populating Them\n\n");
+        //Log::info(" Payments"); Log::debug($payments);
+        //Log::info(" Transfers"); Log::debug($transfers);
 
 
         return view('pages.settlement_view')->withUser(Auth::user())
@@ -243,18 +287,35 @@ class TransactionsController extends Controller
 
 	public function getSettlement(Request $request)
     {
+        Log::info('A Post to Get Settlement');
+        Log::debug($request->all());
+
         $this->validate($request,[
-            'date' => 'bail|max:10'
+            'date' => 'bail|max:23' //2018-05-14 - 2018-05-14  
         ]);
 
         Log::info('The request params : ');
         Log::debug($request->all());
-        $date = explode('/',$request->date);
+        /*$date = explode('/',$request->date);
         $date = Carbon::createFromDate($date[2],$date[0],$date[1]);
-        Log::debug($date->toDateString().' 00:00:00');
+        Log::debug($date->toDateString().' 00:00:00');*/
+        $date = explode(' - ',$request->date);
+        Log::info('The date range');
+        Log::debug($date);
+
+        if($date[0]==$date[1]) {
+            Log::info('It is a single date');
+            return redirect()->route('settlement',['date'=>$date[0]]);
+        }else {
+            $new_date = implode('--',$date);
+            Log::info('DIFF Dates are');
+            Log::debug($new_date);
+            return redirect()->route('settlement',['date'=>$new_date]);
+        }
 
         //return (new TransactionsController())->settlementView($settlement);
-        return redirect()->route('settlement',['date'=>$date->toDateString()]);
+        
+        //return redirect()->route('settlement',['date'=>$date->toDateString()]);
     }
 
     public function fetchTransactions($start, $end)

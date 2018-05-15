@@ -13,10 +13,11 @@ Route::prefix('reports')->group(function (){
     Route::get('/', 'TransactionsController@reports');
     Route::post('/', 'ReportController@filterAll');
     Route::get('{date_range}', 'TransactionsController@reportsView');
-    Route::get('settlement/{date?}','TransactionsController@settlementView')->name('settlement');
+
     Route::post('view', 'TransactionsController@getReport');
     Route::get('download/{start}/{end}/{status}/{r_switch}/{processing_code}/{terminal_id}', 'ReportController@downloadFilterReport');
 
+    Route::get('settlement/{date?}','TransactionsController@settlementView')->name('settlement');
     Route::post('settlement','TransactionsController@getSettlement');
     Route::get('download/settlement/{start}/{end}', 'TransactionsController@downloadReport');
 });

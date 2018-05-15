@@ -35,7 +35,7 @@
 
                             <div class='col-md-2'>
                                 <div class="form-group">
-                                    <label for="processing_code">Select Processing Code:</label>
+                                    <label for="processing_code">Processing Code:</label>
                                     <select name="processing_code" id="processing_code" class="form-control">
                                         <option value="all" selected>all</option>
                                         @foreach($processing_codes as $code)
@@ -94,8 +94,8 @@
                             <div class='col-md-6'>
                                 <div class="form-group">
                                     <label for=""><br></label>
-                                    <label for="report-date-range"><br></label>
-                                    <input type="submit" class="col-sm-12 btn btn-primary" value="generate">
+                                    <label for="report-settlement-date-range"><br></label>
+                                    <input type="submit" class="col-sm-12 btn btn-primary" value="generate" id="report-settlement-date-range">
                                 </div>
                             </div>
                         </form>

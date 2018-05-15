@@ -60,10 +60,15 @@ $(document).ready(function() {
                 }
             });
 
-            $('#report-settlement-date').daterangepicker({
+            /*$('#report-settlement-date').daterangepicker({
                     singleDatePicker: true,
                     showDropdowns: true
-                });
+                });*/
+            $('#report-settlement-date').daterangepicker({
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            });
         }
     });
 
